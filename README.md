@@ -1,468 +1,528 @@
-# AstraNex-KshetraSaarthi
-AI-powered smart farming assistant for Indian farmers using AI, IoT sensors, crop monitoring and intelligent decision support.
 # 🌾 AstraNex — KshetraSaarthi
 
 ### AI-Powered Smart Farming Assistant for Indian Farmers
 
-> **Empowering farmers with AI, IoT, real-time field intelligence and smarter agricultural decisions.**
+> **Turning field data into simple, actionable decisions for farmers.**
+
+AstraNex — **KshetraSaarthi** is a farmer-centric smart agriculture prototype that combines **AI-assisted crop health analysis, IoT-based field monitoring, smart irrigation intelligence, environmental monitoring, and decision support** into a single platform.
+
+The goal is simple: instead of forcing farmers to understand complex sensor values, technical dashboards, or isolated agricultural data, KshetraSaarthi converts field information into **clear, understandable and actionable recommendations**.
 
 ---
 
-## 🚀 About the Project
+## 🚜 The Problem
 
-**KshetraSaarthi**, powered by **AstraNex**, is an AI-powered smart farming assistant designed with Indian farmers in mind.
+Indian farmers face multiple challenges simultaneously:
 
-The system combines **AI-based crop analysis, IoT/field sensors, weather information and intelligent decision support** to help farmers monitor their fields, identify potential crop problems early and make better decisions regarding irrigation, crop health and agricultural risks.
+* 🌱 Crop diseases and pest attacks
+* 💧 Inefficient irrigation and water wastage
+* 🌡️ Changing temperature and environmental conditions
+* 🌦️ Weather-related agricultural risks
+* 📡 Difficulty interpreting field sensor data
+* 💰 Increased input costs
+* ⏱️ Delayed identification of crop problems
+* 📱 Lack of simple, farmer-friendly digital decision-support tools
 
-Instead of expecting farmers to interpret complex technical data, KshetraSaarthi converts field information into **simple, actionable recommendations**.
+Existing agricultural technologies often provide data, but **data alone does not always provide a decision**.
 
-### Our Vision
-
-To build a technology-driven agricultural ecosystem where farmers can receive timely, understandable and actionable information about their fields — helping improve productivity while reducing unnecessary input usage and water consumption.
-
----
-
-# 🎯 Problem Statement
-
-Farmers often face several challenges:
-
-* 🌱 Crop diseases and pests may be detected too late.
-* 💧 Irrigation decisions are often based on estimation rather than field conditions.
-* 🌡️ Temperature and environmental changes can affect crop health.
-* 🌦️ Extreme weather events can create significant agricultural risks.
-* 🧪 Nutrient deficiencies can reduce crop productivity.
-* 📊 Agricultural sensor data can be difficult for farmers to interpret.
-* 📱 Existing digital agricultural tools may not always provide a simple farmer-first experience.
-
-There is a need for a system that can transform **raw field data into simple and useful decisions for farmers**.
+KshetraSaarthi focuses on closing this gap.
 
 ---
 
 # 💡 Our Solution
 
-KshetraSaarthi acts as a **digital farming companion**.
+KshetraSaarthi acts as a **digital farming assistant** that brings together field observations, sensor information and AI-assisted analysis.
 
-The system collects information from multiple sources and processes it through an intelligent decision layer.
+The platform is designed to answer practical questions such as:
 
-### Data Sources
+> **"Does my field need water?"**
+
+> **"Is there a possible problem with my crop?"**
+
+> **"What does this field condition mean?"**
+
+> **"What should I do next?"**
+
+Instead of displaying only technical measurements, the system translates them into **farmer-friendly status indicators and recommendations**.
+
+---
+
+# 👨‍🌾 Farmer-First Approach
+
+KshetraSaarthi is designed around the farmer rather than around the technology.
+
+### Farmer workflow
+
+```text
+Farmer Onboarding
+        ↓
+Crop & Location Setup
+        ↓
+Field Monitoring
+        ↓
+Sensor + Environmental Data
+        ↓
+AI / Decision Engine
+        ↓
+Crop & Field Assessment
+        ↓
+Simple Farmer Recommendation
+        ↓
+Action
+```
+
+The farmer-facing interface prioritizes:
+
+* Simple language
+* Visual indicators
+* Clear alerts
+* Action-oriented recommendations
+* Easy navigation
+* Mobile-application-style interaction
+
+---
+
+# 💧 Smart Irrigation Intelligence
+
+One of the major farmer-facing features is simplified irrigation status.
+
+Instead of asking a farmer to interpret raw soil-moisture values, KshetraSaarthi presents an understandable status.
+
+### 🟢 HEALTHY
+
+**No immediate irrigation required.**
+
+### 🟡 MODERATE
+
+**Apply a smaller quantity of water.**
+
+### 🔴 LOW
+
+**Irrigation is required.**
+
+The objective is to support **efficient water usage** while reducing unnecessary irrigation.
+
+---
+
+# 🌱 Crop Health & Plant Analysis
+
+KshetraSaarthi includes an image-analysis workflow for crop/plant health assessment.
+
+### Analysis workflow
+
+```text
+Plant / Crop Image
+        ↓
+Image Processing
+        ↓
+AI-Assisted Inference
+        ↓
+Crop / Health Assessment
+        ↓
+Farmer-Friendly Result
+        ↓
+Recommended Action
+```
+
+The system is intended to assist with the early identification of potential crop-health problems and provide information in a form that is easier for farmers to understand.
+
+> **Note:** AI-based predictions are intended as decision-support assistance and should not replace professional agricultural diagnosis when required.
+
+---
+
+# 📡 IoT & Field Monitoring
+
+AstraNex also includes a hardware-oriented monitoring layer designed around field sensors.
+
+The prototype demonstrates how agricultural sensor information can become part of the decision-making pipeline.
 
 ```text
 Field Sensors
-     │
-     ├── Soil Moisture
-     ├── Temperature
-     ├── Water Level
-     └── Other Environmental Data
-            │
-            ▼
-     Weather Information
-            │
-            ▼
-       AI Analysis
-            │
-            ▼
-   Decision Support System
-            │
-            ▼
-      KshetraSaarthi
-            │
-            ▼
-     Farmer-Friendly
-     Recommendations
-```
-
-The goal is to convert complex agricultural information into simple actions such as:
-
-* 💧 Water the field
-* 💧 Water only a small quantity
-* ✅ No irrigation required
-* 🌱 Monitor crop health
-* 🦠 Investigate possible disease
-* 🐛 Check for pest activity
-* 🌦️ Prepare for weather-related risks
-
----
-
-# ✨ Key Features
-
-## 👨‍🌾 1. Farmer-First Interface
-
-The platform is designed around the farmer rather than around technical data.
-
-Important field information is presented using:
-
-* Easy-to-understand cards
-* Visual indicators
-* Status gauges
-* Alerts
-* Simple recommendations
-* Mobile-application-style navigation
-
----
-
-## 💧 2. Smart Irrigation Monitoring
-
-The system monitors field water conditions and provides an easy-to-understand status.
-
-Example:
-
-```text
-🔴 LOW
-→ Irrigation required
-
-🟡 MODERATE
-→ Irrigate with a smaller quantity
-
-🟢 HEALTHY
-→ No immediate irrigation required
-```
-
-This helps farmers avoid unnecessary water usage.
-
----
-
-## 🌱 3. Crop Health Monitoring
-
-KshetraSaarthi can assist in monitoring crop health using field information and AI-based analysis.
-
-The objective is to identify potential crop problems early so that farmers can respond before the problem becomes severe.
-
----
-
-## 🦠 4. AI-Based Plant/Disease Analysis
-
-The prototype provides an image-analysis workflow for plant and crop health assessment.
-
-A farmer can provide an image of a plant or affected crop area.
-
-The analysis pipeline can be used to identify potential:
-
-* Crop diseases
-* Pest-related problems
-* Crop health issues
-* Other visible abnormalities
-
-The result is presented separately so that the farmer can clearly understand the analysis and recommended action.
-
----
-
-## 🌦️ 5. Weather & Agricultural Risk Awareness
-
-Weather conditions can significantly affect agricultural productivity.
-
-KshetraSaarthi incorporates environmental and weather-related information to help farmers remain aware of risks such as:
-
-* Extreme heat
-* Heavy rainfall
-* Flood conditions
-* Drought conditions
-* Sudden environmental changes
-
----
-
-## 📡 6. IoT / Field Sensor Integration
-
-The system is designed around real-time field information from sensors.
-
-Potential sensor inputs include:
-
-* Soil moisture
-* Temperature
-* Water level
-* Environmental conditions
-
-The sensor data can then be processed by the decision-support layer.
-
----
-
-## 🤖 7. Intelligent Decision Support
-
-The core objective is not simply to display sensor readings.
-
-Instead:
-
-```text
-Raw Data
-   ↓
+     ↓
+Sensor Data
+     ↓
+Backend
+     ↓
 Data Processing
-   ↓
-AI / Rule-Based Analysis
-   ↓
-Risk & Condition Assessment
-   ↓
-Actionable Recommendation
-   ↓
-Farmer
+     ↓
+Decision Engine
+     ↓
+Farmer Interface
 ```
 
-This allows the system to move from **“data monitoring”** to **“decision support.”**
+The project also includes an **ESP32 sensor example** demonstrating the hardware integration concept.
+
+---
+
+# 🌡️ Environmental Monitoring
+
+Field conditions can change rapidly.
+
+KshetraSaarthi is designed to consider environmental information such as:
+
+* 🌡️ Temperature
+* 💧 Soil moisture
+* 💦 Water availability
+* 🌦️ Weather conditions
+* 🌱 Crop/field health indicators
+
+These signals can be combined to provide a more meaningful interpretation of field conditions.
+
+---
+
+# 🧠 Intelligent Decision Support
+
+The core idea behind AstraNex is not simply:
+
+> **"Collect data."**
+
+It is:
+
+> **"Understand the data and help the farmer decide what to do."**
+
+The decision-support layer combines available field information and analysis results to produce understandable recommendations.
+
+### Conceptual pipeline
+
+```text
+                 ┌─────────────────┐
+                 │   Field Sensors │
+                 └────────┬────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │  Data Processing│
+                 └────────┬────────┘
+                          │
+          ┌───────────────┼────────────────┐
+          │               │                │
+          ▼               ▼                ▼
+    Crop Image      Environmental      Sensor Data
+     Analysis          Data
+          │               │                │
+          └───────────────┼────────────────┘
+                          ▼
+                 ┌─────────────────┐
+                 │ Decision Engine │
+                 └────────┬────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │ Farmer Guidance │
+                 └─────────────────┘
+```
 
 ---
 
 # 🏗️ System Architecture
 
 ```text
-                    ┌─────────────────────┐
-                    │       FARM          │
-                    │                     │
-                    │  Crops / Soil /     │
-                    │  Field Conditions   │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │    IoT Sensors      │
-                    │                     │
-                    │ Soil Moisture       │
-                    │ Temperature         │
-                    │ Water Level         │
-                    │ Environment         │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │    Backend Layer    │
-                    │                     │
-                    │ Data Processing     │
-                    │ APIs                │
-                    │ AI Inference        │
-                    │ Decision Logic      │
-                    └──────────┬──────────┘
-                               │
-                    ┌──────────┴──────────┐
-                    ▼                     ▼
-            ┌───────────────┐     ┌───────────────┐
-            │ AI Crop       │     │ Weather &     │
-            │ Analysis      │     │ Risk Analysis │
-            └───────┬───────┘     └───────┬───────┘
-                    │                     │
-                    └──────────┬──────────┘
-                               ▼
-                    ┌─────────────────────┐
-                    │ KshetraSaarthi      │
-                    │ Decision Support     │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Farmer Application  │
-                    │                     │
-                    │ Alerts              │
-                    │ Recommendations     │
-                    │ Field Status        │
-                    │ Crop Health         │
-                    └─────────────────────┘
+┌──────────────────────────────────────────────┐
+│              KshetraSaarthi UI              │
+│      Farmer Dashboard / Monitoring / AI     │
+└──────────────────────┬───────────────────────┘
+                       │
+                       ▼
+┌──────────────────────────────────────────────┐
+│                 Backend Layer                │
+│       API / Processing / Decision Logic      │
+└──────────────────────┬───────────────────────┘
+                       │
+        ┌──────────────┼───────────────┐
+        ▼              ▼               ▼
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│ AI Analysis │ │ Sensor Data │ │ Field / Risk│
+│   Pipeline  │ │   Pipeline  │ │ Information │
+└─────────────┘ └─────────────┘ └─────────────┘
+        │              │               │
+        └──────────────┼───────────────┘
+                       ▼
+              ┌─────────────────┐
+              │ Decision Engine │
+              └────────┬────────┘
+                       ▼
+              ┌─────────────────┐
+              │ Farmer Guidance │
+              └─────────────────┘
 ```
 
 ---
 
-# 🔄 Data Flow
+# 📱 User Experience
 
-### Step 1 — Field Data Collection
+The project is designed to move away from a traditional technical dashboard and toward a **farmer-friendly application experience**.
 
-Sensors collect information from the agricultural field.
+The interface focuses on:
 
-### Step 2 — Data Processing
+### 🏠 Farmer Dashboard
 
-The backend receives and processes the available field information.
+A quick overview of important field conditions.
 
-### Step 3 — AI / Decision Analysis
+### 💧 Irrigation Status
 
-The system analyses crop images, sensor readings and environmental information.
+Simple visual indication of whether irrigation is required.
 
-### Step 4 — Condition Assessment
+### 🌱 Crop Health
 
-The system determines the current field/crop condition.
+Crop and plant-health information.
 
-### Step 5 — Recommendation
+### 📡 Sensor Monitoring
 
-Relevant information is converted into a simple recommendation.
+Field sensor readings and system status.
 
-### Step 6 — Farmer Interaction
+### 🤖 AI Analysis
 
-The farmer receives the result through the KshetraSaarthi interface.
+Plant/crop image analysis workflow.
+
+### 🌦️ Environmental Information
+
+Relevant environmental and weather-related information.
+
+### ⚠️ Alerts & Recommendations
+
+Important conditions presented in an actionable format.
 
 ---
 
-# 🖥️ Technology Stack
+# 🛠️ Technology
+
+The repository contains the following major components:
 
 ### Frontend
 
 * HTML
 * CSS
 * JavaScript
-* Responsive UI
-* Interactive dashboards
-* Mobile-application-style interface
+* Interactive farmer-facing interface
 
 ### Backend
 
-* Python
-* REST APIs
-* Data processing
-* AI inference pipeline
-* Decision-support logic
+* Python-based backend
+* API and processing components
+* Decision/analysis services
 
-### AI / Machine Learning
+### AI
 
-* Image-based crop analysis
-* Plant disease analysis
-* Crop-health assessment
-* Intelligent recommendations
+* Plant/crop image analysis pipeline
+* Model preparation/inference workflow
 
-### IoT
+### Database
 
-* Soil moisture sensing
-* Temperature sensing
-* Water-level monitoring
-* Environmental monitoring
+* Local data-management components
 
-### Data & External Services
+### Hardware
 
-* Weather information
-* Agricultural datasets
-* Crop/disease information
-* Sensor data
+* ESP32-based sensor integration example
+* Agricultural field-monitoring concept
 
-> The exact technologies and models used in the final implementation should be listed here according to the deployed prototype.
+### Testing
+
+* Automated backend tests and project test configuration
+
+> The repository contains the implementation files for these components. Specific models, libraries and deployment configurations should be referenced directly from the corresponding source files.
 
 ---
 
-# 📱 Farmer-Centric Design
+# 📂 Project Structure
 
-A major design principle of KshetraSaarthi is:
-
-> **Technology should adapt to the farmer — not the farmer to the technology.**
-
-Instead of overwhelming users with raw numbers and technical terminology, the interface focuses on:
-
-### What is happening?
-
-🌱 Crop condition
-
-### What needs attention?
-
-⚠️ Potential problem
-
-### What should I do?
-
-💧 Irrigate / Monitor / Take action
-
-### How urgent is it?
-
-🔴 High
-🟡 Medium
-🟢 Healthy
-
----
-
-# 🌍 Designed for Indian Agriculture
-
-KshetraSaarthi is designed with the realities of Indian agriculture in mind.
-
-The system aims to support farmers dealing with:
-
-* Water scarcity
-* Changing weather patterns
-* Crop diseases
-* Pest attacks
-* Heat waves
-* Heavy rainfall
-* Flood risks
-* Drought conditions
-* Increasing agricultural input costs
-
-Our long-term vision is to make intelligent agricultural technology **accessible, understandable and useful at the field level**.
+```text
+AstraNex-KshetraSaarthi/
+│
+├── assets/
+│   ├── india_map.png
+│   └── plant_health_emojis.jpg
+│
+├── backend/
+│   ├── main.py
+│   ├── db.py
+│   ├── engine.py
+│   ├── schemas.py
+│   ├── services/
+│   │   ├── fusion.py
+│   │   ├── inference.py
+│   │   ├── irrigation.py
+│   │   └── sensor_health.py
+│   ├── models/
+│   └── uploads/
+│
+├── hardware/
+│   └── esp32_sensor_example.ino
+│
+├── scripts/
+│   └── download_model.py
+│
+├── tests/
+│   └── test_engine.py
+│
+├── astranex_frontend.html
+├── AstraNex_Hardware_Prototype_Simulation_v4(1).htm
+├── requirements.txt
+├── run_backend.sh
+├── prepare_ai_model.sh
+├── START_HERE.md
+├── VERSION.txt
+├── pytest.ini
+├── .gitignore
+└── .env.example
+```
 
 ---
 
-# 📊 Prototype
+# ⚙️ Running the Prototype
 
-The current repository contains the prototype developed for the **Internal Hackathon 2026 at RGUKT-AP**.
+## 1. Clone the repository
 
-The prototype demonstrates the concept, user interface, field monitoring workflow, AI-assisted analysis and decision-support approach of KshetraSaarthi.
+```bash
+git clone https://github.com/pothumahantyharshavardhan-creator/AstraNex-KshetraSaarthi.git
+cd AstraNex-KshetraSaarthi
+```
+
+## 2. Create a Python virtual environment
+
+```bash
+python3 -m venv venv
+```
+
+Activate it:
+
+```bash
+source venv/bin/activate
+```
+
+## 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## 4. Start the backend
+
+```bash
+./run_backend.sh
+```
+
+If required, make the script executable:
+
+```bash
+chmod +x run_backend.sh
+```
+
+For additional project-specific setup, refer to:
+
+```text
+START_HERE.md
+```
+
+and:
+
+```text
+backend/README.md
+```
+
+---
+
+# 🧪 Testing
+
+The repository includes backend tests.
+
+Run:
+
+```bash
+pytest
+```
+
+The test configuration is provided through:
+
+```text
+pytest.ini
+```
+
+---
+
+# 🔬 Prototype Scope
+
+AstraNex — KshetraSaarthi is currently a **prototype / proof-of-concept** demonstrating how AI, IoT and agricultural decision-support technologies can be brought together for farmer-centric applications.
+
+The prototype establishes the software and hardware integration concepts required for a future field deployment.
+
+---
+
+# 🚀 Future Expansion
+
+The platform can be extended toward real-world agricultural deployment through:
+
+* 📡 Large-scale IoT sensor networks
+* 🛰️ Satellite and remote-sensing data
+* 🌦️ More advanced weather and climate intelligence
+* 🤖 Improved crop/disease models
+* 🗣️ Regional-language voice interaction
+* 📱 Dedicated Android/mobile application
+* 🔌 Offline-first field operation
+* ☁️ Secure cloud synchronization
+* 📊 Long-term crop and field history
+* 🧪 Nutrient and soil-health analysis
+* 🌾 Crop-specific recommendation models
+* 👨‍🌾 Community and expert agricultural support
+
+---
+
+# 🎯 Our Vision
+
+Our vision is to build a practical digital farming assistant that can help farmers make **faster, simpler and more informed decisions** using the information already available in their fields.
+
+> **AstraNex doesn't aim to give farmers more data.
+> It aims to turn data into decisions.**
 
 ---
 
 # 🏆 Hackathon
 
-### Internal Hackathon 2026 — RGUKT-AP
+AstraNex — KshetraSaarthi was developed as part of our **Internal Hackathon 2026 at RGUKT AP**, providing an opportunity to develop, demonstrate and improve our solution as part of our journey toward the **Smart India Hackathon (SIH)**.
 
-KshetraSaarthi was developed and presented as part of the **Internal Hackathon 2026 at Rajiv Gandhi University of Knowledge Technologies, Andhra Pradesh (RGUKT-AP)**.
-
-The Internal Hackathon provided an opportunity to develop, demonstrate and improve our solution as part of our journey toward the **Smart India Hackathon (SIH)**.
+The project focuses on applying technology to a real-world agricultural problem with an emphasis on **Indian farmers, practical field deployment and farmer-centric design**.
 
 ---
 
 # 👥 Team
 
-### Team Name
-
-**AstraNex**
-
-### Project
-
-**AstraNex — KshetraSaarthi**
-
-## 👥 Team
-
-- **Harsha** — Team Lead & Full-Stack/Web Developer
-- **Zubair** — AI & Translation Developer
-- **Karthik** — Hardware & Simulation
-- **Mounika** — Agricultural Research & Pest Analysis
-- **Chandrika** — Presentation & Documentation
-- **Preethi** — Video Production & Development
-
-### Institution
-
-**Rajiv Gandhi University of Knowledge Technologies,ONGOLE
-Andhra Pradesh (RGUKT-AP)**
+| Member        | Role                                  |
+| ------------- | ------------------------------------- |
+| **Harsha**    | Team Lead & Full-Stack/Web Developer  |
+| **Zubair**    | AI & Translation Developer            |
+| **Karthik**   | Hardware & Simulation                 |
+| **Mounika**   | Agricultural Research & Pest Analysis |
+| **Chandrika** | Presentation & Documentation          |
+| **Preethi**   | Video Production & Development        |
 
 ---
 
-# 👨‍🏫 Acknowledgements
+# 🙏 Acknowledgements
 
-We sincerely thank the **Director, SPOC, AO, faculty members, coordinators and organizers of RGUKT-AP** for their guidance, encouragement and support in providing students with an opportunity to participate in the Internal Hackathon 2026.
+We sincerely thank:
 
-We are grateful to **RGUKT-AP and RGUKT Ongole** for encouraging innovation, technical learning and student participation in national-level innovation initiatives.
+* **RGUKT AP**
+* Our Director
+* Our SPOC
+* Our Administrative Officer
+* Faculty mentors and coordinators
+* Everyone who supported our Internal Hackathon journey
 
----
-
-# 🚀 Future Scope
-
-KshetraSaarthi can be further expanded with:
-
-* 📡 Large-scale IoT deployment
-* 🛰️ Satellite and remote-sensing data
-* 🌦️ Advanced weather prediction
-* 🤖 More accurate AI crop-disease models
-* 🗣️ Regional-language voice interaction
-* 📱 Android/iOS deployment
-* 🗺️ Field mapping and geospatial intelligence
-* 📈 Historical crop analytics
-* 🔔 Personalized farmer alerts
-* ☁️ Cloud synchronization
-* 👨‍🌾 Multi-farm management
-* 📊 Agricultural decision analytics
+Their guidance and encouragement helped us develop and refine AstraNex — KshetraSaarthi.
 
 ---
 
-# 🎯 Our Goal
+# 📜 Disclaimer
 
-KshetraSaarthi is not just about detecting a problem.
+AstraNex — KshetraSaarthi is a prototype developed for demonstration and hackathon purposes.
 
-It is about helping a farmer **understand the problem, respond at the right time and make a better decision.**
+AI-generated crop-health assessments and recommendations are intended as **decision-support information** and should not be treated as a definitive agricultural diagnosis.
 
-> **Detect early. Understand clearly. Act intelligently.**
-
-### 🌾 AstraNex — KshetraSaarthi
-
-### **Technology for Smarter Farms. Intelligence for Stronger Farmers.**
+Real-world deployment would require extensive field validation, crop-specific datasets, sensor calibration, agronomic validation, security testing and farmer trials.
 
 ---
 
-## 📜 License
+# 🌾 AstraNex — KshetraSaarthi
 
-This project is developed as a student innovation prototype for hackathon and educational purposes.
+### **From Sensors to Intelligence. From Intelligence to Action.**
 
-**© 2026 AstraNex / KshetraSaarthi Team**
+**Built with the vision of making smart agriculture more accessible to Indian farmers.**
