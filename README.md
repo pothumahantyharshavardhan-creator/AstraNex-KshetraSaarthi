@@ -404,14 +404,14 @@ The Internal Hackathon provided an opportunity to develop, demonstrate and impro
 
 **AstraNex — KshetraSaarthi**
 
-### Team Members
+## 👥 Team
 
-*Harsha — Team Lead & Full-Stack/Web Developer
-*Zubair — AI & Translation Developer
-*Karthik — Hardware & Simulation
-*Mounika — Agricultural Research & Pest Analysis
-*Chandrika — Presentation & Documentation
-*Preethi — Video Production & Development
+- **Harsha** — Team Lead & Full-Stack/Web Developer
+- **Zubair** — AI & Translation Developer
+- **Karthik** — Hardware & Simulation
+- **Mounika** — Agricultural Research & Pest Analysis
+- **Chandrika** — Presentation & Documentation
+- **Preethi** — Video Production & Development
 
 ### Institution
 
