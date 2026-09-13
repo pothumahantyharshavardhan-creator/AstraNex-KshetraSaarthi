@@ -406,12 +406,12 @@ The Internal Hackathon provided an opportunity to develop, demonstrate and impro
 
 ### Team Members
 
-* **Harsha** — Team lead(Web developer)
-* **Zubair** — AI translation developer
-* **Karthik** — Simulaion
-* **Mounika** — research on pests and their resistances
-* **Chandrika** — PPT
-* **Preethi** — Video editor and developer
+Harsha — Team Lead & Full-Stack/Web Developer
+Zubair — AI & Translation Developer
+Karthik — Hardware & Simulation
+Mounika — Agricultural Research & Pest Analysis
+Chandrika — Presentation & Documentation
+Preethi — Video Production & Development
 
 ### Institution
 
