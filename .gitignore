@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# Runtime data (regenerated automatically)
+backend/astranex.db
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/models/*
+!backend/models/.gitkeep
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

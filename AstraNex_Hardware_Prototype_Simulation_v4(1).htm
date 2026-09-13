@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AstraNex — KshetraSaarthi Hardware Prototype Simulation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --soil-900:#2A2117; --soil-800:#372B1E; --soil-700:#4A3B29;
+    --leaf-600:#3F6B35; --leaf-500:#4F7F3F;
+    --amber-500:#D98E2B; --amber-600:#B8721E;
+    --red-500:#B23A2E; --red-600:#8F2C22;
+    --field-cream:#EFE3C6; --field-cream-dark:#E4D5B0;
+    --ink-900:#1E1A14; --paper:#FBF7EE;
+    --line:rgba(255,255,255,0.10); --line-soft:rgba(30,26,20,0.12);
+    --focus:#8FBF6B;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--paper);color:var(--ink-900);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 20px 60px;}
+  section{scroll-margin-top:70px;}
+
+  /* ---------- Sticky nav ---------- */
+  .navbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,247,238,0.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .navbar-inner{
+    max-width:1220px;margin:0 auto;padding:10px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  }
+  .nav-brand{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;font-size:16px;letter-spacing:0.03em;}
+  .nav-brand span{color:var(--leaf-600);}
+  .nav-links{display:flex;gap:4px;flex-wrap:wrap;}
+  .nav-links a{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;text-decoration:none;color:var(--soil-800);
+    padding:6px 10px;border-radius:14px;
+  }
+  .nav-links a:hover{background:var(--field-cream);}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:34px 0 26px;border-bottom:2px solid var(--ink-900);}
+  .hero-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:flex-start;}
+  .brand-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--leaf-600);margin:0 0 4px;}
+  h1.brand{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(30px,5vw,48px);letter-spacing:0.01em;margin:0;line-height:0.98;text-transform:uppercase;}
+  h1.brand span{color:var(--leaf-600);}
+  .hero-tagline{font-size:15px;line-height:1.6;max-width:560px;margin:12px 0 0;color:#3A2F1F;}
+  .meta-block{font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.7;color:var(--soil-800);text-align:right;min-width:220px;}
+  .meta-block b{color:var(--ink-900);}
+  .badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+  .badge{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:var(--field-cream);
+    border:1px solid var(--line-soft);border-radius:20px;padding:5px 12px;color:var(--soil-800);
+  }
+  .about-toggle{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;background:none;border:1px solid var(--ink-900);
+    border-radius:20px;padding:6px 14px;cursor:pointer;color:var(--ink-900);
+  }
+  .about-toggle:hover{background:var(--ink-900);color:var(--paper);}
+  .about-panel{display:none;background:var(--field-cream);border:1px solid var(--line-soft);border-radius:10px;padding:16px 18px;margin-top:18px;font-size:13.5px;line-height:1.65;}
+  .about-panel.open{display:block;}
+  .about-panel h3{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:16px;letter-spacing:0.03em;margin:0 0 8px;}
+  .about-panel ul{margin:8px 0 0;padding-left:18px;}
+  .about-panel li{margin-bottom:4px;}
+
+  /* ---------- How it works ---------- */
+  .section-head{margin:44px 0 18px;}
+  .section-head h2{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:26px;letter-spacing:0.02em;margin:0 0 4px;}
+  .section-head p{font-size:13.5px;color:#5A4A32;margin:0;max-width:640px;}
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:820px){.steps3{grid-template-columns:1fr;}}
+  .step-card{background:var(--field-cream);border-radius:12px;padding:18px 18px 20px;border:1px solid var(--line-soft);}
+  .step-card .step-n{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--leaf-600);letter-spacing:0.1em;}
+  .step-card h3{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:18px;margin:4px 0 8px;}
+  .step-card p{font-size:12.8px;line-height:1.55;margin:0;color:#3A2F1F;}
+  .stack-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+  .stack-chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:var(--soil-900);color:var(--field-cream);padding:6px 12px;border-radius:16px;}
+
+  /* ---------- Controls bar ---------- */
+  .controls{background:var(--soil-900);color:var(--field-cream);border-radius:14px;padding:20px 22px;margin-bottom:20px;position:relative;overflow:hidden;}
+  .controls::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--leaf-500),var(--amber-500),var(--red-500));}
+  .controls h2{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:20px;letter-spacing:0.03em;margin:6px 0 16px;}
+  .controls-grid{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:22px;align-items:start;}
+  @media(max-width:920px){.controls-grid{grid-template-columns:1fr;}}
+  legend{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9BFA0;margin-bottom:8px;padding:0;}
+  fieldset{border:none;margin:0 0 14px;padding:0;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:'Inter',sans-serif;font-size:12px;font-weight:500;background:var(--soil-700);
+    border:1px solid transparent;color:var(--field-cream);padding:7px 12px 7px 8px;border-radius:20px;
+    cursor:pointer;transition:background .15s, border-color .15s;display:inline-flex;align-items:center;gap:6px;
+  }
+  .chip:hover{background:#5A4A32;}
+  .chip.active{background:var(--leaf-600);border-color:#EFE3C6;color:#fff;}
+  .chip svg{flex-shrink:0;}
+  .chip:focus-visible, button:focus-visible, .num-btn:focus-visible, .lang-btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px;}
+  select.crop-select{
+    font-family:'Inter',sans-serif;font-size:13px;padding:9px 12px;border-radius:8px;
+    border:1px solid var(--soil-700);background:var(--soil-800);color:var(--field-cream);width:100%;
+  }
+  .sliders{display:grid;gap:14px;}
+  .slider-row label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#E4D5B0;margin-bottom:6px;}
+  .slider-row label .val{color:#fff;font-weight:600;}
+  input[type=range]{width:100%;accent-color:var(--leaf-500);height:4px;}
+  .weather-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+  .run-btn{
+    width:100%;margin-top:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:0.04em;font-size:17px;background:var(--leaf-600);color:#fff;border:none;border-radius:10px;
+    padding:13px;cursor:pointer;transition:transform .1s, background .15s;
+  }
+  .run-btn:hover{background:var(--leaf-500);}
+  .run-btn:active{transform:scale(0.98);}
+  .run-btn:disabled{background:#5A4A32;cursor:not-allowed;}
+  .camera-preview{margin-top:10px;background:#1E1811;border:1px solid var(--soil-700);border-radius:10px;padding:10px;display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:center;}
+  .camera-frame{width:92px;height:72px;border-radius:8px;background:#2E2519;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid var(--soil-700);}
+  .camera-frame svg{width:70px;height:70px;}
+  .camera-copy{font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:#C9BFA0;}
+  .camera-copy b{display:block;color:#fff;font-size:10.5px;margin-bottom:2px;}
+  .sim-status{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px;}
+  .status-pill{font-family:'IBM Plex Mono',monospace;font-size:9.5px;border:1px solid var(--soil-700);background:#1E1811;color:#C9BFA0;border-radius:14px;padding:5px 9px;}
+  .status-pill strong{color:#fff;}
+  .hardware-roadmap{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:18px;}
+  .roadmap-item{background:var(--field-cream);border:1px solid var(--line-soft);border-radius:9px;padding:12px 8px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.4;}
+  .roadmap-item b{display:block;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:13px;margin-bottom:4px;}
+  .roadmap-arrow{display:flex;align-items:center;justify-content:center;font-weight:700;}
+  @media(max-width:920px){.hardware-roadmap{grid-template-columns:repeat(2,1fr);}.roadmap-arrow{display:none;}}
+
+  /* ---------- Main stage ---------- */
+  .stage{display:grid;grid-template-columns:1.15fr 0.85fr;gap:22px;align-items:start;}
+  @media(max-width:920px){.stage{grid-template-columns:1fr;}}
+  .panel{background:var(--soil-900);color:var(--field-cream);border-radius:14px;padding:22px;}
+  .panel h3.section-title{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9BFA0;margin:0 0 4px;}
+  .panel .section-sub{font-family:'Inter',sans-serif;font-size:11.5px;color:#8A7C5E;margin:0 0 14px;}
+
+  .circuit-box{background:#1E1811;border-radius:10px;padding:10px 6px 4px;margin-bottom:8px;border:1px solid var(--soil-700);}
+  .circuit-box svg{width:100%;height:auto;display:block;}
+  .wire{fill:none;stroke:#5A4A32;stroke-width:2;}
+  .wire.power{stroke-dasharray:4 3;stroke:#7A6A44;}
+  .chip-rect{fill:#332920;stroke:var(--leaf-500);stroke-width:1.5;rx:6;}
+  .sensor-rect{fill:#2E2519;stroke:#6E5E3C;stroke-width:1.2;rx:5;}
+  .sensor-rect.pulse-on{stroke:var(--amber-500);}
+  .svg-label{font-family:'IBM Plex Mono',monospace;font-size:8.6px;fill:#C9BFA0;}
+  .svg-label.b{fill:#fff;font-weight:600;}
+  .svg-readout{font-family:'IBM Plex Mono',monospace;font-size:9.5px;fill:var(--amber-500);font-weight:600;}
+  .svg-title{font-family:'Barlow Condensed',sans-serif;font-size:12px;fill:#fff;letter-spacing:0.02em;}
+
+  .pipeline{margin-top:16px;border-top:1px solid var(--line);padding-top:16px;}
+  .nodes{display:flex;gap:6px;margin-bottom:14px;}
+  .node{flex:1;text-align:center;padding:9px 3px;border-radius:8px;background:var(--soil-800);border:1px solid var(--soil-700);font-family:'IBM Plex Mono',monospace;font-size:9.2px;line-height:1.3;color:#8A7C5E;transition:all .25s ease;}
+  .node.active{background:var(--leaf-600);border-color:var(--leaf-500);color:#fff;transform:translateY(-2px);}
+  .node.done{background:var(--soil-700);border-color:var(--leaf-600);color:var(--field-cream);}
+  .log{font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.85;min-height:110px;color:#D8CBA6;}
+  .log .line{opacity:0;animation:fadeIn .35s forwards;}
+  .log .line::before{content:"› ";color:var(--leaf-500);}
+  @keyframes fadeIn{to{opacity:1;}}
+  .log .placeholder{color:#6E624A;}
+  .guardrail-note{
+    margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--leaf-500);
+    border-top:1px dashed var(--soil-700);padding-top:8px;display:none;
+  }
+  .guardrail-note.show{display:block;}
+
+  /* ---------- Device ---------- */
+  .device-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;}
+  .lang-select{display:flex;gap:6px;}
+  .lang-btn{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;background:var(--soil-700);color:var(--field-cream);border:1px solid transparent;padding:6px 12px;border-radius:16px;cursor:pointer;}
+  .lang-btn.active{background:var(--leaf-600);border-color:#fff;color:#fff;}
+  .device{width:100%;max-width:380px;background:var(--soil-800);border-radius:26px;padding:16px 16px 22px;position:relative;box-shadow:0 18px 40px -18px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.05);}
+  .device .bolt{position:absolute;width:7px;height:7px;border-radius:50%;background:#5A4A32;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.4);}
+  .device .bolt.tl{top:10px;left:10px;} .device .bolt.tr{top:10px;right:10px;}
+  .device .bolt.bl{bottom:10px;left:10px;} .device .bolt.br{bottom:10px;right:10px;}
+  .device-topbar{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:#B8A97F;}
+  .device-topbar .solar{display:flex;align-items:center;gap:4px;}
+  .device-topbar .dot{width:6px;height:6px;border-radius:50%;background:var(--leaf-500);}
+  .screen{background:var(--field-cream);border-radius:14px;padding:20px 18px 16px;min-height:340px;display:flex;flex-direction:column;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.06);}
+  .screen.empty{align-items:center;justify-content:center;text-align:center;color:#8A7A54;}
+  .screen.empty .empty-icon{font-size:34px;margin-bottom:10px;}
+  .screen.empty p{font-family:'Inter',sans-serif;font-size:12.5px;max-width:230px;line-height:1.6;margin:0;}
+
+  .voice-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+  .voice-btn{
+    position:relative;width:56px;height:56px;flex-shrink:0;border-radius:50%;background:var(--leaf-600);
+    color:#fff;border:none;cursor:pointer;font-size:24px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 10px rgba(0,0,0,0.18);
+  }
+  .voice-btn:hover{background:var(--leaf-500);}
+  .voice-btn::before, .voice-btn::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--leaf-500);opacity:0;}
+  .voice-btn.speaking::before{animation:ringPulse 1.2s ease-out infinite;}
+  .voice-btn.speaking::after{animation:ringPulse 1.2s ease-out infinite;animation-delay:.4s;}
+  @keyframes ringPulse{0%{opacity:.65;transform:scale(1);}100%{opacity:0;transform:scale(1.7);}}
+  .voice-hint{font-family:'Inter',sans-serif;font-size:12px;line-height:1.4;color:#6E5E3C;}
+  .voice-hint[lang="te"]{font-family:'Noto Sans Telugu',sans-serif;}
+  .voice-hint[lang="hi"]{font-family:'Noto Sans Devanagari',sans-serif;}
+  .voice-unsupported{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--red-600);background:#fff0ee;border:1px dashed var(--red-500);border-radius:6px;padding:6px 8px;margin-bottom:10px;}
+
+  .status-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .status-icon-svg{flex-shrink:0;}
+  .status-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 3px rgba(0,0,0,0.05);}
+  .status-dot.green{background:var(--leaf-500);}
+  .status-dot.amber{background:var(--amber-500);}
+  .status-dot.red{background:var(--red-500);}
+  .status-label{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-weight:700;font-size:13.5px;letter-spacing:0.03em;}
+  .status-label.green{color:var(--leaf-600);}
+  .status-label.amber{color:var(--amber-600);}
+  .status-label.red{color:var(--red-600);}
+  .status-label[data-lang="te"], .status-label[data-lang="hi"]{text-transform:none;}
+
+  .headline{font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:600;line-height:1.15;margin:0 0 10px;color:var(--ink-900);}
+  .headline[data-lang="te"]{font-family:'Noto Sans Telugu','Barlow Condensed',sans-serif;font-size:18px;font-weight:600;}
+  .headline[data-lang="hi"]{font-family:'Noto Sans Devanagari','Barlow Condensed',sans-serif;font-size:18px;font-weight:600;}
+
+  .crop-tag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8A7A54;margin-bottom:6px;}
+  .evidence-box{background:var(--field-cream-dark);border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.6;margin-bottom:10px;}
+  .evidence-box b{display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;color:#6E5E3C;margin-bottom:4px;}
+  .action-box{background:#fff;border:1.5px solid var(--ink-900);border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.55;margin-bottom:14px;}
+  .action-box b{display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--leaf-600);margin-bottom:4px;}
+  .evidence-box[lang="te"], .action-box[lang="te"]{font-family:'Noto Sans Telugu',sans-serif;}
+  .evidence-box[lang="hi"], .action-box[lang="hi"]{font-family:'Noto Sans Devanagari',sans-serif;}
+
+  .num-menu{margin-top:auto;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+  .num-btn{display:flex;align-items:center;gap:8px;background:var(--soil-800);color:var(--field-cream);border:none;border-radius:8px;padding:9px 10px;font-family:'Inter',sans-serif;font-size:11px;cursor:pointer;text-align:left;}
+  .num-btn[lang="te"]{font-family:'Noto Sans Telugu',sans-serif;font-size:11px;}
+  .num-btn[lang="hi"]{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;}
+  .num-btn:hover{background:var(--soil-700);}
+  .num-btn .n{font-family:'IBM Plex Mono',monospace;background:var(--leaf-600);color:#fff;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;}
+  .reveal{font-size:12px;line-height:1.7;background:#fff;border-radius:8px;padding:10px 12px;margin-top:8px;display:none;border:1px dashed #8A7A54;}
+  .reveal.open{display:block;}
+  .reveal .r-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;color:#8A7A54;display:block;margin:6px 0 2px;}
+  .reveal .r-label:first-child{margin-top:0;}
+  .confidence-note{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#8A7A54;margin-top:10px;text-align:center;}
+
+  /* ---------- Interactive knowledge library ---------- */
+  .interaction-flow{display:flex;align-items:stretch;gap:7px;margin:8px 0 20px;overflow-x:auto;padding:2px 1px 8px;}
+  .flow-step{min-width:138px;flex:1;background:var(--field-cream);border:1px solid var(--line-soft);border-radius:10px;padding:10px 10px 9px;}
+  .flow-step span{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--leaf-600);letter-spacing:.08em;}
+  .flow-step b{display:block;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:13px;margin:3px 0;}
+  .flow-step small{font-size:9.5px;color:#5A4A32;}
+  .flow-arrow{display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--leaf-600);flex:0 0 16px;}
+  .disease-grid,.scenario-grid,.future-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:16px;}
+  .interactive-card{position:relative;background:var(--field-cream);border:1px solid var(--line-soft);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:flex-start;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;}
+  .interactive-card:hover,.interactive-card:focus-visible{transform:translateY(-2px);border-color:rgba(63,107,53,.45);box-shadow:0 9px 20px rgba(42,33,23,.10);}
+  .interactive-card:focus-visible{outline:3px solid var(--focus);outline-offset:2px;}
+  .interactive-card svg{flex-shrink:0;background:#fff;border-radius:8px;padding:3px;}
+  .interactive-card .dcrop,.interactive-card .card-kicker{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--leaf-600);letter-spacing:.06em;text-transform:uppercase;}
+  .interactive-card .dname,.interactive-card .card-title{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;line-height:1.2;margin:2px 0 4px;}
+  .interactive-card .dpattern,.interactive-card .card-summary{font-size:11px;color:#5A4A32;line-height:1.4;}
+  .card-hint{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--leaf-600);margin-top:7px;opacity:.9;}
+  .preview-pop{position:absolute;z-index:4;left:10px;right:10px;bottom:calc(100% + 8px);background:var(--soil-900);color:var(--field-cream);border-radius:9px;padding:10px 11px;box-shadow:0 10px 25px rgba(30,26,20,.20);opacity:0;visibility:hidden;transform:translateY(5px);transition:opacity .16s ease,transform .16s ease,visibility .16s ease;pointer-events:none;}
+  .interactive-card:hover .preview-pop,.interactive-card:focus-within .preview-pop{opacity:1;visibility:visible;transform:translateY(0);}
+  .preview-pop strong{display:block;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:15px;}
+  .preview-pop .preview-disease{color:#E4D5B0;font-size:10.5px;margin:2px 0 5px;}
+  .preview-pop p{font-size:10.5px;line-height:1.45;margin:0;color:#D8CBA6;}
+  .preview-pop em{display:block;margin-top:6px;color:var(--leaf-500);font-family:'IBM Plex Mono',monospace;font-size:9px;font-style:normal;}
+  .scenario-card,.future-card{display:block;}
+  .scenario-card .scenario-icon,.future-card .future-icon{font-size:24px;line-height:1;flex-shrink:0;width:38px;height:38px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;}
+  .future-card{border-left:3px solid var(--amber-500);}
+  .future-status{display:inline-block;margin-top:7px;font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.05em;text-transform:uppercase;background:#fff;border:1px solid var(--line-soft);padding:3px 6px;border-radius:10px;color:var(--red-600);}
+  .compact-section-head{margin-top:36px;margin-bottom:10px;}
+  .compact-section-head h2{font-size:22px;}
+  .modal-backdrop{position:fixed;inset:0;z-index:100;background:rgba(30,26,20,.64);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px);}
+  .modal-backdrop.open{display:flex;}
+  .modal-dialog{width:min(760px,100%);max-height:min(88vh,760px);overflow:auto;background:var(--paper);border-radius:14px;border:1px solid rgba(255,255,255,.35);box-shadow:0 24px 70px rgba(0,0,0,.30);animation:modalIn .18s ease-out;}
+  @keyframes modalIn{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:none}}
+  .modal-head{display:flex;justify-content:space-between;gap:18px;padding:20px 22px 15px;background:var(--soil-900);color:var(--field-cream);position:sticky;top:0;z-index:2;}
+  .modal-kicker{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--leaf-500);margin-bottom:4px;}
+  .modal-head h3{font-family:'Barlow Condensed',sans-serif;font-size:25px;line-height:1.05;margin:0;color:#fff;}
+  .modal-head .modal-subtitle{font-size:12px;color:#E4D5B0;margin-top:4px;}
+  .modal-close{width:34px;height:34px;flex:0 0 34px;border:1px solid #8A7C5E;border-radius:50%;background:transparent;color:#fff;font-size:20px;cursor:pointer;line-height:1;}
+  .modal-close:hover{background:var(--soil-700);}
+  .modal-body{padding:20px 22px 22px;}
+  .modal-badge{display:inline-flex;align-items:center;gap:6px;background:var(--field-cream);border:1px solid var(--line-soft);border-radius:14px;padding:5px 9px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--soil-800);margin-bottom:14px;}
+  .modal-section{border-top:1px solid var(--line-soft);padding:13px 0 0;margin-top:13px;}
+  .modal-section h4{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:16px;margin:0 0 6px;color:var(--ink-900);}
+  .modal-section p,.modal-section li{font-size:12.5px;line-height:1.6;color:#3A2F1F;}
+  .modal-section p{margin:0;}
+  .modal-section ul{margin:5px 0 0;padding-left:19px;}
+  .modal-section li{margin-bottom:4px;}
+  .verification-note{background:#fff;border:1px dashed #8A7A54;border-radius:9px;padding:10px 12px;margin-top:14px;font-size:11.5px;line-height:1.55;color:#5A4A32;}
+  .verification-note b{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--leaf-600);}
+  .ai-note{background:var(--field-cream);border-radius:9px;padding:10px 12px;margin-top:10px;font-size:11.5px;line-height:1.55;color:#3A2F1F;}
+  .modal-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:18px;}
+  .modal-action{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.03em;font-size:15px;border-radius:9px;padding:10px 14px;cursor:pointer;}
+  .modal-action.primary{background:var(--leaf-600);color:#fff;border:1px solid var(--leaf-600);}
+  .modal-action.primary:hover{background:var(--leaf-500);}
+  .modal-action.secondary{background:transparent;color:var(--ink-900);border:1px solid var(--ink-900);}
+  .toast{position:fixed;z-index:120;left:50%;bottom:24px;transform:translate(-50%,12px);background:var(--soil-900);color:#fff;padding:10px 14px;border-radius:9px;box-shadow:0 8px 24px rgba(0,0,0,.22);font-family:'IBM Plex Mono',monospace;font-size:10.5px;opacity:0;visibility:hidden;transition:opacity .18s ease,transform .18s ease,visibility .18s ease;max-width:min(90vw,560px);text-align:center;}
+  .toast.show{opacity:1;visibility:visible;transform:translate(-50%,0);}
+  @media(max-width:820px){.interaction-flow{display:grid;grid-template-columns:1fr 1fr;overflow:visible;}.flow-arrow{display:none;}.flow-step{min-width:0;}.disease-grid,.scenario-grid,.future-grid{grid-template-columns:1fr;}.modal-backdrop{padding:10px;}.modal-body{padding:17px;}.modal-head{padding:16px 17px 13px;}.modal-head h3{font-size:22px;}}
+  @media (prefers-reduced-motion: reduce){.interactive-card,.preview-pop,.modal-dialog,.toast{transition:none !important;animation:none !important;}}
+
+  /* ---------- References ---------- */
+  .ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:16px;}
+  @media(max-width:820px){.ref-grid{grid-template-columns:1fr;}}
+  .ref-list{list-style:none;margin:0;padding:0;font-size:12.5px;line-height:1.7;}
+  .ref-list li{padding:8px 0;border-bottom:1px solid var(--line-soft);}
+  .ref-list a{color:var(--leaf-600);text-decoration:underline;word-break:break-all;}
+  .ref-tag{font-family:'IBM Plex Mono',monospace;font-size:9.5px;background:var(--soil-900);color:var(--field-cream);padding:2px 7px;border-radius:9px;margin-right:6px;}
+
+  footer.disclaimer{margin-top:36px;border-top:1px solid var(--line-soft);padding:20px 0 10px;font-size:12px;line-height:1.6;color:var(--soil-800);}
+  footer.disclaimer b{color:var(--ink-900);}
+
+  @media (prefers-reduced-motion: reduce){.node, .log .line{animation:none !important; transition:none !important;}}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="nav-brand">AstraNex <span>· SmartCrop AI</span></div>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#simulator">Simulator</a>
+      <a href="#diseases">Disease library</a>
+      <a href="#references">References</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero" id="overview">
+    <div class="hero-top">
+      <div>
+        <p class="brand-eyebrow">SIH26180 · Qualcomm Inc. · Hardware Prototype Simulation</p>
+        <h1 class="brand">KshetraSaarthi <span>Hardware Simulation</span></h1>
+        <p class="hero-tagline">A virtual demonstration of our proposed field hardware: camera + local sensors + edge intelligence combine crop observations and field context to produce an explainable farmer-facing decision. The current page represents the hardware workflow while the physical prototype is under development.</p>
+        <div class="badge-row">
+          <span class="badge">Category: Hardware</span>
+          <span class="badge">Theme: Agriculture, FoodTech &amp; Rural Dev.</span>
+          <span class="badge">Team: AstraNex</span>
+          <span class="badge">Offline-first</span>
+          <span class="badge">Simulation Mode</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:14px;">
+        <div class="meta-block">
+          <div><b>Problem Statement:</b> SIH26180</div>
+          <div><b>Sponsor:</b> Qualcomm Inc.</div>
+        </div>
+        <button class="about-toggle" id="aboutToggle" aria-expanded="false" aria-controls="aboutPanel">What is this?</button>
+      </div>
+    </div>
+
+    <div class="about-panel" id="aboutPanel">
+      <h3>How to read this simulation</h3>
+      <p>This is a <b>hardware workflow simulation</b> for the panel presentation. It does not claim that the current webpage contains the final physical sensors or trained edge model. Select a representative camera scenario, set simulated sensor values, run the scan, and follow the signal from the <b>proposed sensor circuit</b> → <b>edge pipeline</b> → <b>farmer device</b>.</p>
+      <ul>
+        <li>The camera scenarios and diagnosis outcomes are <b>representative simulation inputs</b>. The current page uses simplified rules to demonstrate the intended decision flow; a trained image model will replace this layer in the hardware prototype.</li>
+        <li>The visual samples are original illustrations, not dataset photographs. They represent the type of camera evidence the future hardware model will process.</li>
+        <li>Voice now only plays when you tap the speaker — not automatically — because auto-play from a background timer is blocked or silently fails in many browsers. A direct tap is the reliable path.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="how-it-works">
+    <div class="section-head">
+      <h2>How it works</h2>
+      <p>Three-step loop: capture field evidence → combine visual and sensor context → provide a cautious, farmer-friendly action.</p>
+    </div>
+    <div class="steps3">
+      <div class="step-card">
+        <div class="step-n">01 · DETECT</div>
+        <h3>Sense</h3>
+        <p>Phone camera + low-cost sensors read leaf condition, soil moisture, temperature and humidity in the field.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-n">02 · EXPLAIN</div>
+        <h3>Fuse &amp; Reason</h3>
+        <p>A proposed lightweight edge model will interpret the camera input locally; the decision layer combines that result with sensor and weather context and applies uncertainty guardrails.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-n">03 · ACT</div>
+        <h3>Assist</h3>
+        <p>A short, localized next step is shown and spoken in the farmer's language, with verification encouraged when evidence is weak.</p>
+      </div>
+    </div>
+    <div class="stack-row">
+      <span class="stack-chip">Android phone</span>
+      <span class="stack-chip">ESP32 / LoRa sensors</span>
+      <span class="stack-chip">TensorFlow Lite / ONNX Runtime</span>
+      <span class="stack-chip">FastAPI + PostgreSQL sync</span>
+      <span class="stack-chip">Multilingual voice output</span>
+      <span class="stack-chip">Qualcomm AI Hub (deployment target)</span>
+    </div>
+    <div class="hardware-roadmap" aria-label="Proposed hardware roadmap">
+      <div class="roadmap-item"><b>Camera</b>Leaf image capture</div>
+      <div class="roadmap-arrow">→</div>
+      <div class="roadmap-item"><b>Edge MCU</b>Local inference</div>
+      <div class="roadmap-arrow">→</div>
+      <div class="roadmap-item"><b>Sensors</b>Moisture · temp · RH</div>
+      <div class="roadmap-arrow">→</div>
+      <div class="roadmap-item"><b>Decision</b>Risk + explanation</div>
+      <div class="roadmap-arrow">→</div>
+      <div class="roadmap-item"><b>Farmer</b>Screen + voice</div>
+      <div class="roadmap-item"><b>Target</b>Qualcomm edge deployment</div>
+    </div>
+  </section>
+
+  <section id="simulator">
+    <div class="section-head">
+      <h2>Live simulator</h2>
+      <p>Set up a scenario below, run the scan, and see what the farmer's device would show and say.</p>
+    </div>
+
+    <div class="controls">
+      <h2>Field Console</h2>
+      <div class="controls-grid">
+        <div>
+          <fieldset>
+            <legend>Crop</legend>
+            <select class="crop-select" id="cropSelect">
+              <option value="tomato">Tomato</option>
+              <option value="chilli">Chilli</option>
+              <option value="cotton">Cotton</option>
+              <option value="paddy">Paddy (Rice)</option>
+              <option value="maize">Maize</option>
+              <option value="groundnut">Groundnut</option>
+              <option value="brinjal">Brinjal</option>
+              <option value="turmeric">Turmeric</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <legend>Camera input · representative scenario</legend>
+            <div class="chip-row" id="conditionChips"></div>
+            <div class="camera-preview" id="cameraPreview">
+              <div class="camera-frame" id="cameraFrame">📷</div>
+              <div class="camera-copy"><b id="cameraTitle">Camera sample: healthy leaf</b><span id="cameraMeta">Representative visual input · simulation only</span></div>
+            </div>
+          </fieldset>
+        </div>
+        <div>
+          <fieldset>
+            <legend>Field sensors</legend>
+            <div class="sliders">
+              <div class="slider-row">
+                <label>Soil moisture <span class="val" id="moistureVal">45%</span></label>
+                <input type="range" id="moisture" min="0" max="100" value="45">
+              </div>
+              <div class="slider-row">
+                <label>Temperature <span class="val" id="tempVal">29°C</span></label>
+                <input type="range" id="temp" min="10" max="45" value="29">
+              </div>
+              <div class="slider-row">
+                <label>Humidity <span class="val" id="humidityVal">55%</span></label>
+                <input type="range" id="humidity" min="20" max="100" value="55">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div>
+          <fieldset>
+            <legend>Weather context (simulated / cached)</legend>
+            <div class="weather-row" id="weatherChips">
+              <button class="chip active" data-weather="normal">Normal</button>
+              <button class="chip" data-weather="drought">Drought watch</button>
+              <button class="chip" data-weather="flood">Flood / heavy rain</button>
+              <button class="chip" data-weather="heat">Heatwave</button>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Connectivity</legend>
+            <div class="weather-row" id="connectivityChips">
+              <button class="chip active" data-connectivity="offline">Offline · local processing</button>
+              <button class="chip" data-connectivity="online">Online · sync available</button>
+            </div>
+          </fieldset>
+          <button class="run-btn" id="runBtn">▶ Run field scan</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sim-status" aria-label="Prototype status">
+      <span class="status-pill"><strong>MODE:</strong> Simulation</span>
+      <span class="status-pill"><strong>CAMERA:</strong> Representative input</span>
+      <span class="status-pill"><strong>SENSORS:</strong> Simulated</span>
+      <span class="status-pill"><strong>EDGE AI:</strong> Proposed model layer</span>
+      <span class="status-pill"><strong>CORE:</strong> Offline-capable concept</span>
+    </div>
+
+    <div class="stage">
+      <div class="panel">
+        <h3 class="section-title">Sensor Circuit</h3>
+        <p class="section-sub">Proposed field hardware — all values below are simulated in this presentation prototype.</p>
+        <div class="circuit-box">
+          <svg viewBox="0 0 640 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Circuit diagram showing soil moisture sensor, DHT temperature and humidity sensor, camera module and solar power connected to an ESP32 microcontroller, which outputs to the device screen and speaker.">
+            <path id="wireSoil" class="wire" d="M 95 55 L 180 55 L 180 95 L 250 95" />
+            <path id="wireDht" class="wire" d="M 95 155 L 180 155 L 180 115 L 250 115" />
+            <path id="wireCam" class="wire" d="M 545 55 L 460 55 L 460 95 L 390 95" />
+            <path class="wire power" d="M 545 155 L 460 155 L 460 115 L 390 115" />
+            <path class="wire" d="M 320 140 L 320 190" />
+            <rect class="chip-rect" x="250" y="70" width="140" height="60" rx="6"/>
+            <text x="320" y="94" text-anchor="middle" class="svg-title">ESP32 EDGE MCU</text>
+            <text x="320" y="108" text-anchor="middle" class="svg-label">proposed edge model · offline cache</text>
+            <text x="320" y="120" text-anchor="middle" class="svg-label" id="mcuReadout">standing by…</text>
+            <rect class="sensor-rect" id="soilBox" x="15" y="30" width="80" height="50" rx="5"/>
+            <text x="55" y="45" text-anchor="middle" class="svg-label b">SOIL PROBE</text>
+            <text x="55" y="57" text-anchor="middle" class="svg-label">analog · A0</text>
+            <text x="55" y="70" text-anchor="middle" class="svg-readout" id="soilReadout">— raw</text>
+            <rect class="sensor-rect" id="dhtBox" x="15" y="130" width="80" height="50" rx="5"/>
+            <text x="55" y="145" text-anchor="middle" class="svg-label b">DHT22</text>
+            <text x="55" y="157" text-anchor="middle" class="svg-label">temp + humidity</text>
+            <text x="55" y="170" text-anchor="middle" class="svg-readout" id="dhtReadout">— / —</text>
+            <rect class="sensor-rect" id="camBox" x="545" y="30" width="80" height="50" rx="5"/>
+            <text x="585" y="45" text-anchor="middle" class="svg-label b">OV2640 CAM</text>
+            <text x="585" y="57" text-anchor="middle" class="svg-label">leaf image</text>
+            <text x="585" y="70" text-anchor="middle" class="svg-readout" id="camReadout">SIMULATED</text>
+            <rect class="sensor-rect" x="545" y="130" width="80" height="50" rx="5"/>
+            <text x="585" y="145" text-anchor="middle" class="svg-label b">SOLAR + Li-ion</text>
+            <text x="585" y="157" text-anchor="middle" class="svg-label">offline-first power</text>
+            <text x="585" y="170" text-anchor="middle" class="svg-label">3.7V buffered</text>
+            <text x="320" y="204" text-anchor="middle" class="svg-label">↓ to device screen + speaker</text>
+            <circle r="4" fill="#D98E2B"><animateMotion id="pulseSoil" begin="indefinite" dur="0.6s" path="M 95 55 L 180 55 L 180 95 L 250 95" /></circle>
+            <circle r="4" fill="#D98E2B"><animateMotion id="pulseDht" begin="indefinite" dur="0.6s" path="M 95 155 L 180 155 L 180 115 L 250 115" /></circle>
+            <circle r="4" fill="#D98E2B"><animateMotion id="pulseCam" begin="indefinite" dur="0.6s" path="M 545 55 L 460 55 L 460 95 L 390 95" /></circle>
+          </svg>
+        </div>
+
+        <div class="pipeline">
+          <h3 class="section-title">Edge Pipeline</h3>
+          <div class="nodes" id="nodes">
+            <div class="node" data-n="0">FARMER<br>/ FIELD</div>
+            <div class="node" data-n="1">INPUT<br>CAPTURE</div>
+            <div class="node" data-n="2">EDGE<br>AI · PROPOSED</div>
+            <div class="node" data-n="3">RISK<br>ENGINE</div>
+            <div class="node" data-n="4">DECISION<br>LAYER</div>
+            <div class="node" data-n="5">FARMER<br>ACTION</div>
+          </div>
+          <div class="log" id="log"><div class="placeholder">Simulation mode: run a scan to see the proposed hardware pipeline…</div></div>
+          <div class="guardrail-note" id="guardrailNote">✓ Decision guardrails checked: confidence threshold, crop stage window, weather window — before showing this alert.</div>
+        </div>
+      </div>
+
+      <div class="device-wrap">
+        <div class="lang-select" id="langSelect">
+          <button class="lang-btn active" data-lang="en">English</button>
+          <button class="lang-btn" data-lang="te">తెలుగు</button>
+          <button class="lang-btn" data-lang="hi">हिंदी</button>
+        </div>
+        <div class="device">
+          <span class="bolt tl"></span><span class="bolt tr"></span><span class="bolt bl"></span><span class="bolt br"></span>
+          <div class="device-topbar">
+            <span>ASTRANEX·01 · SIM</span>
+            <span class="solar"><span class="dot"></span>HARDWARE CONCEPT</span>
+          </div>
+          <div class="screen empty" id="screen">
+            <div class="empty-icon">🌱</div>
+            <p id="emptyText">Device screen will show the farmer-facing alert here, in the farmer's own language — and read aloud — once a scan runs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="diseases">
+    <div class="section-head">
+      <h2>Disease Library</h2>
+      <p>Interactive reference cards for the representative crop-condition classes already present in the simulator. This is an AI-assisted preliminary identification concept, not a validated diagnostic system.</p>
+    </div>
+
+    <div class="interaction-flow" aria-label="AstraNex presentation flow">
+      <div class="flow-step"><span>01</span><b>Disease Library</b><small>Identify / Select</small></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step"><span>02</span><b>Detailed Knowledge</b><small>Verify symptoms</small></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step"><span>03</span><b>Use in Simulation</b><small>Load scenario</small></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step"><span>04</span><b>Camera + Sensors</b><small>Field context</small></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step"><span>05</span><b>Edge AI</b><small>Risk &amp; interpretation</small></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step"><span>06</span><b>Farmer-Friendly Output</b><small>Verify before action</small></div>
+    </div>
+
+    <div class="disease-grid" id="diseaseGrid"></div>
+
+    <div class="section-head compact-section-head">
+      <h2>Supported Scenarios</h2>
+      <p>These scenarios connect the existing camera-condition controls with the field-sensor context. Run them from the card to demonstrate the end-to-end prototype workflow.</p>
+    </div>
+    <div class="scenario-grid" id="scenarioGrid"></div>
+
+    <div class="section-head compact-section-head">
+      <h2>Future Expansion</h2>
+      <p>Planned directions only. These items are not represented as implemented, validated or deployment-ready features.</p>
+    </div>
+    <div class="future-grid" id="futureGrid"></div>
+
+    <div class="about-panel open" style="display:block;margin-top:16px;">
+      <b>PoC scope:</b> For physical validation, start with one crop and a small validated class set. The larger library and expansion roadmap shown here are presentation concepts, not a claim of current model coverage.
+    </div>
+  </section>
+
+  <div class="modal-backdrop" id="infoModal" aria-hidden="true">
+    <div class="modal-dialog" id="infoModalDialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+      <div class="modal-head">
+        <div>
+          <div class="modal-kicker" id="modalKicker">ASTRANEX · KNOWLEDGE CARD</div>
+          <h3 id="modalTitle">🌿 Plant</h3>
+          <div class="modal-subtitle" id="modalSubtitle">Disease</div>
+        </div>
+        <button class="modal-close" id="modalClose" aria-label="Close dialog" title="Close">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+  <div class="toast" id="scenarioToast" role="status" aria-live="polite"></div>
+
+  <section id="references">
+    <div class="section-head">
+      <h2>Research &amp; references</h2>
+      <p>Sources behind this concept and disease list, carried over from the team's pre-PPT research and idea submission.</p>
+    </div>
+    <div class="ref-grid">
+      <div>
+        <h3 style="font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:15px;margin:0 0 6px;">Datasets &amp; AI research</h3>
+        <ul class="ref-list">
+          <li><span class="ref-tag">R1</span>Mohanty, Hughes &amp; Salathé (2016), "Using Deep Learning for Image-Based Plant Disease Detection," Frontiers in Plant Science — <a href="https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2016.01419/full" target="_blank" rel="noopener">frontiersin.org</a></li>
+          <li><span class="ref-tag">R2</span>PlantVillage Dataset — 54,306 images, 38 classes — <a href="https://github.com/spMohanty/PlantVillage-Dataset" target="_blank" rel="noopener">github.com/spMohanty</a></li>
+          <li><span class="ref-tag">R3</span>Singh et al. (2019), "PlantDoc: A Dataset for Visual Plant Disease Detection" — <a href="https://arxiv.org/abs/1911.10317" target="_blank" rel="noopener">arxiv.org/abs/1911.10317</a></li>
+          <li><span class="ref-tag">R4</span>Lightweight edge-AI pest/disease detection research (2025) — <a href="https://www.nature.com/articles/s41598-025-06452-5" target="_blank" rel="noopener">nature.com</a></li>
+          <li><span class="ref-tag">R6</span>Qualcomm AI Hub — optimize, validate and deploy models for Qualcomm devices — <a href="https://aihub.qualcomm.com/" target="_blank" rel="noopener">aihub.qualcomm.com</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:15px;margin:0 0 6px;">Agriculture &amp; advisory sources</h3>
+        <ul class="ref-list">
+          <li><span class="ref-tag">R5</span>ESP32 + soil-moisture + DHT smart-irrigation research — <a href="https://link.springer.com/article/10.1007/s13201-025-02727-4" target="_blank" rel="noopener">springer.com</a></li>
+          <li><span class="ref-tag">R8</span>ICAR — Kharif Agro-Advisory for Farmers — <a href="https://icar.gov.in/en/kharif-agro-advisory-farmers" target="_blank" rel="noopener">icar.gov.in</a></li>
+          <li><span class="ref-tag">[1]</span>IMD Agromet Advisory Services — <a href="https://mausam.imd.gov.in/responsive/agromet_adv_ser_state_current.php" target="_blank" rel="noopener">mausam.imd.gov.in</a></li>
+          <li><span class="ref-tag">[2]</span>ICAR-CRIDA Crop–pest–weather database — <a href="http://www.icar-crida.res.in:8080/naip/AccessData.jsp" target="_blank" rel="noopener">icar-crida.res.in</a></li>
+          <li><span class="ref-tag">[3]</span>CABI — Global Burden of Crop Loss — <a href="https://www.cabi.org/projects/global-burden-of-crop-loss/" target="_blank" rel="noopener">cabi.org</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="disclaimer">
+    <b>Prototype Status:</b> This web interface is a simulation/presentation prototype representing the proposed hardware architecture. Camera input, sensor values and AI inference shown in the webpage are simulated. The intended final system will integrate physical sensors, camera hardware and a validated lightweight edge-AI model. AI-assisted preliminary identification is not a confirmed diagnosis; verify symptoms and local agricultural guidance before treatment.
+  </footer>
+</div>
+
+<script>
+(function(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let condition = 'healthy';
+  let weather = 'normal';
+  let connectivity = 'offline';
+  let lang = 'en';
+  let lastResult = null;
+  let lastCrop = 'tomato';
+
+  /* ---------------- leaf icon generator (original illustrations, not photos) ---------------- */
+  let iconUid = 0;
+  function leafIcon(kind, size){
+    iconUid++;
+    const leafPath = "M30 4 C8 16 4 34 30 56 C56 34 52 16 30 4 Z";
+    const vein = "M30 8 L30 50 M30 20 L18 28 M30 20 L42 28 M30 34 L20 42 M30 34 L40 42";
+    let fill = '#4F7F3F';
+    let defsBlock = '';
+    let overlay = '';
+    if(kind==='diseaseA'){
+      overlay = `<circle cx="20" cy="22" r="3.4" fill="#6B4A2A"/><circle cx="34" cy="18" r="2.6" fill="#6B4A2A"/><circle cx="24" cy="36" r="3" fill="#6B4A2A"/><circle cx="38" cy="34" r="2.2" fill="#6B4A2A"/><circle cx="29" cy="46" r="2.4" fill="#6B4A2A"/>`;
+    } else if(kind==='diseaseB'){
+      fill = '#5C7F3F';
+      overlay = `<path d="M14 20 C20 14 26 18 24 26 C22 32 14 30 14 20 Z" fill="#A8C97F" opacity="0.85"/><path d="M34 30 C42 26 46 34 40 40 C34 44 30 36 34 30 Z" fill="#D9CE6B" opacity="0.85"/><path d="M22 40 C28 38 30 44 24 48 C20 50 18 44 22 40 Z" fill="#A8C97F" opacity="0.85"/>`;
+    } else if(kind==='yellowing'){
+      defsBlock = `<defs><linearGradient id="yg${iconUid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4F7F3F"/><stop offset="100%" stop-color="#D9B23C"/></linearGradient></defs>`;
+      fill = `url(#yg${iconUid})`;
+    } else if(kind==='pest'){
+      overlay = `<circle cx="22" cy="24" r="3" fill="#EFE3C6"/><circle cx="34" cy="30" r="2.6" fill="#EFE3C6"/><circle cx="26" cy="40" r="2.2" fill="#EFE3C6"/><path d="M12 18 L18 22 L12 26 Z" fill="#EFE3C6"/>`;
+    }
+    return `<svg viewBox="0 0 60 60" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">${defsBlock}<path d="${leafPath}" fill="${fill}" stroke="#2A2117" stroke-width="1.2"/><path d="${vein}" stroke="#2A2117" stroke-width="1" fill="none" opacity="0.45"/>${overlay}</svg>`;
+  }
+
+  /* ---------------- crop + disease data ---------------- */
+  const CROP_DISEASES = {
+    tomato:    { diseaseA:{en:'Early Blight',    te:'తొలిదశ ఆకుమచ్చ తెగులు (ఎర్లీ బ్లైట్)',      hi:'अगेती झुलसा (अर्ली ब्लाइट)'},
+                 diseaseB:{en:'Yellow Leaf Curl Virus', te:'పసుపు ఆకు ముడత వైరస్',              hi:'पीला पत्ता मोड़ विषाणु'} },
+    chilli:    { diseaseA:{en:'Cercospora Leaf Spot', te:'సర్కోస్పోరా ఆకుమచ్చ తెగులు',           hi:'सर्कोस्पोरा पत्ती धब्बा रोग'},
+                 diseaseB:{en:'Chilli Leaf Curl Virus', te:'మిర్చి ఆకు ముడత వైరస్',              hi:'मिर्च पत्ती मोड़ विषाणु'} },
+    cotton:    { diseaseA:{en:'Grey Mildew',      te:'బూడిద బూజు తెగులు (గ్రే మిల్డ్యూ)',         hi:'धूसर फफूंदी (ग्रे मिल्ड्यू)'},
+                 diseaseB:{en:'Cotton Leaf Curl Virus', te:'పత్తి ఆకు ముడత వైరస్',               hi:'कपास पत्ती मोड़ विषाणु'} },
+    paddy:     { diseaseA:{en:'Rice Blast',       te:'వరి మెడ విరుపు తెగులు (రైస్ బ్లాస్ట్)',      hi:'धान झोंका रोग (राइस ब्लास्ट)'},
+                 diseaseB:{en:'Bacterial Leaf Blight', te:'బాక్టీరియా ఆకు ఎండు తెగులు',          hi:'जीवाणु पत्ती झुलसा रोग'} },
+    maize:     { diseaseA:{en:'Northern Leaf Blight', te:'ఉత్తర ఆకు ఎండు తెగులు',               hi:'उत्तरी पत्ती झुलसा रोग'},
+                 diseaseB:{en:'Common Rust',      te:'సాధారణ కుంకుమ తెగులు (రస్ట్)',              hi:'सामान्य रतुआ रोग'} },
+    groundnut: { diseaseA:{en:'Early Leaf Spot',  te:'తొలిదశ ఆకుమచ్చ తెగులు',                     hi:'अगेती पत्ती धब्बा रोग'},
+                 diseaseB:{en:'Groundnut Rust',   te:'వేరుశనగ కుంకుమ తెగులు (రస్ట్)',              hi:'मूंगफली रतुआ रोग'} },
+    brinjal:   { diseaseA:{en:'Cercospora Leaf Spot', te:'సర్కోస్పోరా ఆకుమచ్చ తెగులు',           hi:'सर्कोस्पोरा पत्ती धब्बा रोग'},
+                 diseaseB:{en:'Phomopsis Blight', te:'ఫోమోప్సిస్ ఎండు తెగులు',                    hi:'फोमोप्सिस झुलसा रोग'} },
+    turmeric:  { diseaseA:{en:'Leaf Spot (Colletotrichum)', te:'ఆకుమచ్చ తెగులు (కొల్లెటోట్రైకమ్)', hi:'पत्ती धब्बा रोग (कोलेटोट्राइकम)'},
+                 diseaseB:{en:'Leaf Blotch (Taphrina)', te:'ఆకు మచ్చ తెగులు (టాఫ్రినా)',           hi:'पत्ती धब्बा रोग (टैफ्रिना)'} }
+  };
+  const CROP_NAMES = {
+    en:{tomato:'Tomato',chilli:'Chilli',cotton:'Cotton',paddy:'Paddy (Rice)',maize:'Maize',groundnut:'Groundnut',brinjal:'Brinjal',turmeric:'Turmeric'},
+    te:{tomato:'టమాటో',chilli:'మిర్చి',cotton:'పత్తి',paddy:'వరి',maize:'మొక్కజొన్న',groundnut:'వేరుశనగ',brinjal:'వంకాయ',turmeric:'పసుపు'},
+    hi:{tomato:'टमाटर',chilli:'मिर्च',cotton:'कपास',paddy:'धान',maize:'मक्का',groundnut:'मूंगफली',brinjal:'बैंगन',turmeric:'हल्दी'}
+  };
+  const CONDITION_META = [
+    {id:'healthy',   labelEn:()=>'Looks healthy', kind:'healthy'},
+    {id:'diseaseA',  labelEn:(ck)=>CROP_DISEASES[ck].diseaseA.en, kind:'diseaseA'},
+    {id:'diseaseB',  labelEn:(ck)=>CROP_DISEASES[ck].diseaseB.en, kind:'diseaseB'},
+    {id:'yellowing', labelEn:()=>'Lower leaves yellowing', kind:'yellowing'},
+    {id:'holes',     labelEn:()=>'Chewed edges / holes', kind:'pest'},
+    {id:'unclear',   labelEn:()=>'Poor / unclear image', kind:'unclear'},
+    {id:'unknown',   labelEn:()=>'Unknown condition', kind:'unclear'}
+  ];
+
+  /* ---------------- I18N ---------------- */
+  const UI = {
+    en:{status:{green:'ALL CLEAR',amber:'CHECK SOON',red:'ACT TODAY'},
+        menu:{play:'🔊 Hear this again',detail:'👁 More detail',help:'📞 Talk to a person',feedback:'👍 Was this useful?',feedbackDone:'✓ Thanks — noted'},
+        why:'Why',whatToDo:'What to do',scanTag:'SCAN JUST NOW',
+        confNote:'Farmer sees the card + hears it read aloud — never a raw percentage.',
+        simConf:'Simulated confidence',sensorSnap:'Sensor snapshot',
+        empty:"Device screen will show the farmer-facing alert here, in the farmer's own language — and read aloud — once a scan runs.",
+        helpAlert:'In the real system this would connect to a helpline or extension worker. Simulation only — no call is placed.',
+        voiceHint:'Tap the speaker to hear the alert',
+        voiceUnsupported:'Voice playback is not available on this browser/device.',
+        voiceRetry:'Could not play — tap again'},
+    te:{status:{green:'అంతా బాగుంది',amber:'త్వరలో చూడండి',red:'ఈరోజే చర్య తీసుకోండి'},
+        menu:{play:'🔊 మళ్ళీ వినండి',detail:'👁 మరింత వివరం',help:'📞 వ్యక్తితో మాట్లాడండి',feedback:'👍 ఇది ఉపయోగపడిందా?',feedbackDone:'✓ ధన్యవాదాలు — నమోదైంది'},
+        why:'ఎందుకు',whatToDo:'ఏమి చేయాలి',scanTag:'ఇప్పుడే స్కాన్ చేయబడింది',
+        confNote:'రైతుకు కార్డు కనిపిస్తుంది, చదివి కూడా వినిపిస్తుంది — శాతం సంఖ్య చూపించదు.',
+        simConf:'అంచనా నమ్మక స్థాయి',sensorSnap:'సెన్సార్ రీడింగ్',
+        empty:'స్కాన్ చేసిన తర్వాత రైతు కోసం హెచ్చరిక ఇక్కడ, రైతు భాషలో కనిపిస్తుంది — చదివి కూడా వినిపిస్తుంది.',
+        helpAlert:'నిజమైన వ్యవస్థలో ఇది హెల్ప్‌లైన్ లేదా విస్తరణ అధికారితో కలుపుతుంది. ఇది సిమ్యులేషన్ మాత్రమే — కాల్ చేయబడదు.',
+        voiceHint:'హెచ్చరిక వినడానికి స్పీకర్‌ను నొక్కండి',
+        voiceUnsupported:'ఈ బ్రౌజర్/పరికరంలో వాయిస్ ప్లేబ్యాక్ అందుబాటులో లేదు.',
+        voiceRetry:'ప్లే కాలేదు — మళ్ళీ నొక్కండి'},
+    hi:{status:{green:'सब ठीक है',amber:'जल्द जांचें',red:'आज ही कार्रवाई करें'},
+        menu:{play:'🔊 फिर से सुनें',detail:'👁 और जानकारी',help:'📞 व्यक्ति से बात करें',feedback:'👍 क्या यह उपयोगी था?',feedbackDone:'✓ धन्यवाद — दर्ज किया गया'},
+        why:'क्यों',whatToDo:'क्या करें',scanTag:'अभी-अभी स्कैन हुआ',
+        confNote:'किसान को कार्ड दिखेगा और यह बोलकर भी सुनाया जाएगा — प्रतिशत संख्या नहीं दिखाई जाएगी।',
+        simConf:'अनुमानित विश्वास स्तर',sensorSnap:'सेंसर रीडिंग',
+        empty:'स्कैन होने के बाद किसान के लिए चेतावनी यहां, उसकी अपनी भाषा में दिखेगी — और बोलकर भी सुनाई जाएगी।',
+        helpAlert:'असली व्यवस्था में यह हेल्पलाइन या विस्तार अधिकारी से जोड़ेगा। यह केवल सिमुलेशन है — कोई कॉल नहीं जाएगी।',
+        voiceHint:'चेतावनी सुनने के लिए स्पीकर दबाएं',
+        voiceUnsupported:'इस ब्राउज़र/डिवाइस पर आवाज़ चलाना उपलब्ध नहीं है।',
+        voiceRetry:'चल नहीं पाया — फिर से दबाएं'}
+  };
+
+  const ISSUE_TEXT = {
+    en:{
+      healthy:{headline:c=>`${c} looks fine right now`,
+        evidence:(m,t,h)=>`No unusual leaf pattern was seen in this scan. Soil moisture ${m}%, temperature ${t}°C and humidity ${h}% are all in the normal range.`,
+        action:()=>'No action needed today. The next scheduled scan will check again.'},
+      diseaseA_severe:{headline:n=>`Possible ${n} — spreading fast`,
+        evidence:(m,t,h)=>`Leaf shows spotting/discoloration consistent with a fungal disease. Humidity ${h}% and soil moisture ${m}% are both high enough for it to spread quickly.`,
+        action:()=>'Check the lower and inner leaves today. Avoid watering over the leaves until the field dries a little, and consider isolating badly affected plants.'},
+      diseaseA_mild:{headline:n=>`Possible ${n} — early signs`,
+        evidence:(m,t,h)=>`Leaf shows spotting/discoloration consistent with a fungal disease, but humidity ${h}% and soil moisture ${m}% are only moderately favourable for it right now.`,
+        action:()=>'Check the same leaves again tomorrow. If spotting increases, treat it as active disease.'},
+      diseaseB_severe:{headline:n=>`Possible ${n} — high-risk conditions`,
+        evidence:(m,t,h)=>`Leaf pattern and the current temperature (${t}°C) match conditions where this problem tends to spread faster.`,
+        action:()=>'Check the plant today, and avoid moving material from this area to other parts of the field to reduce spread.'},
+      diseaseB_mild:{headline:n=>`Possible ${n} — early signs`,
+        evidence:(m,t,h)=>`Leaf pattern is consistent with this problem, though current conditions (${t}°C) are only moderately favourable for it to spread.`,
+        action:()=>'Check the same plant again in a day or two and watch for spreading.'},
+      water_stress:{headline:()=>'Likely water stress, not disease',
+        evidence:(m)=>`Lower leaves are yellowing and soil moisture is low at ${m}%. This pattern matches water stress more than a nutrient problem.`,
+        action:()=>'Check soil moisture and irrigation requirement before watering. Recheck the same leaves in 2–3 days.'},
+      nutrient:{headline:()=>'Possible nutrient deficiency',
+        evidence:(m)=>`Lower leaves are yellowing, but soil moisture is adequate at ${m}%, so water stress is less likely.`,
+        action:()=>'Compare with local crop-nutrient guidance before adding fertiliser. Check again in a few days.'},
+      pest:{headline:()=>'Possible pest activity',
+        evidence:()=>'The leaf shows chewed edges and small holes — more typical of pest feeding than disease or nutrient stress.',
+        action:()=>'Walk the field edges today to look for the pest. Try a low-cost, targeted remedy first.'}
+    },
+    te:{
+      healthy:{headline:c=>`${c} ఇప్పుడు బాగానే ఉంది`,
+        evidence:(m,t,h)=>`ఈ స్కాన్‌లో ఆకుల్లో అసాధారణ మార్పు కనిపించలేదు. నేల తేమ ${m}%, ఉష్ణోగ్రత ${t}°C, తేమశాతం ${h}% — అన్నీ సాధారణ పరిధిలోనే ఉన్నాయి.`,
+        action:()=>'ఈరోజు ఎలాంటి చర్య అవసరం లేదు. తర్వాతి స్కాన్‌లో మళ్ళీ చూద్దాం.'},
+      diseaseA_severe:{headline:n=>`${n} వేగంగా వ్యాపిస్తుండవచ్చు`,
+        evidence:(m,t,h)=>`ఆకుపై కనిపిస్తున్న మచ్చలు/రంగు మార్పు శిలీంధ్ర వ్యాధిని సూచిస్తున్నాయి. తేమశాతం ${h}%, నేల తేమ ${m}% — ఇవి రెండూ వ్యాధి వేగంగా వ్యాపించడానికి అనుకూలంగా ఉన్నాయి.`,
+        action:()=>'ఈరోజే కింది, లోపలి ఆకులను పరిశీలించండి. పొలం కొద్దిగా ఆరేవరకు పైనుంచి నీరు పెట్టడం మానండి, ఎక్కువగా దెబ్బతిన్న మొక్కలను వేరు చేయండి.'},
+      diseaseA_mild:{headline:n=>`${n} ప్రారంభ సంకేతాలు కావచ్చు`,
+        evidence:(m,t,h)=>`ఆకుపై కనిపిస్తున్న మచ్చలు శిలీంధ్ర వ్యాధిని సూచిస్తున్నాయి, కానీ తేమశాతం ${h}%, నేల తేమ ${m}% ప్రస్తుతం మధ్యస్థంగా మాత్రమే అనుకూలం.`,
+        action:()=>'రేపు అవే ఆకులను మళ్ళీ చూడండి. మచ్చలు పెరిగితే, దానిని చురుకైన వ్యాధిగా భావించండి.'},
+      diseaseB_severe:{headline:n=>`${n} — అధిక-ప్రమాద పరిస్థితులు కావచ్చు`,
+        evidence:(m,t,h)=>`ఆకు తీరు, ప్రస్తుత ఉష్ణోగ్రత (${t}°C) — ఈ సమస్య వేగంగా వ్యాపించే పరిస్థితులతో సరిపోతున్నాయి.`,
+        action:()=>'ఈరోజు మొక్కను పరిశీలించండి, వ్యాప్తి తగ్గించడానికి ఈ ప్రాంతం నుంచి మొక్క భాగాలను వేరే చోటికి తీసుకెళ్లవద్దు.'},
+      diseaseB_mild:{headline:n=>`${n} ప్రారంభ సంకేతాలు కావచ్చు`,
+        evidence:(m,t,h)=>`ఆకు తీరు ఈ సమస్యను సూచిస్తుంది, అయితే ప్రస్తుత పరిస్థితులు (${t}°C) వ్యాప్తికి మధ్యస్థంగా మాత్రమే అనుకూలం.`,
+        action:()=>'ఒకటి-రెండు రోజుల్లో అదే మొక్కను మళ్ళీ చూడండి, వ్యాప్తిని గమనించండి.'},
+      water_stress:{headline:()=>'నీటి ఎద్దడి కావచ్చు, వ్యాధి కాదు',
+        evidence:(m)=>`కింది ఆకులు పసుపు రంగులోకి మారుతున్నాయి, నేల తేమ ${m}% తక్కువగా ఉంది. ఈ తీరు పోషకాల లోపం కంటే నీటి ఎద్దడికి దగ్గరగా ఉంది.`,
+        action:()=>'నీరు పెట్టే ముందు నేల తేమ, నీటిపారుదల అవసరాన్ని పరిశీలించండి. 2–3 రోజుల్లో అవే ఆకులను మళ్ళీ చూడండి.'},
+      nutrient:{headline:()=>'పోషకాల లోపం కావచ్చు',
+        evidence:(m)=>`కింది ఆకులు పసుపు రంగులోకి మారుతున్నాయి, కానీ నేల తేమ ${m}% సరిపడేంత ఉంది, కాబట్టి నీటి ఎద్దడి అవకాశం తక్కువ.`,
+        action:()=>'ఎరువులు వేసే ముందు స్థానిక పంట-పోషక సూచనలతో పోల్చండి. కొన్ని రోజుల్లో మళ్ళీ చూడండి.'},
+      unclear:{headline:()=>'చిత్రం స్పష్టంగా లేదు — నమ్మకంగా గుర్తించలేము',
+        evidence:()=>'కెమెరా చిత్రం స్పష్టంగా లేదా పూర్తిగా లేదు. అందువల్ల వ్యవస్థ బలవంతంగా నిర్ధారణ ఇవ్వదు.',
+        action:()=>'మంచి వెలుతురులో మరింత స్పష్టమైన చిత్రాన్ని తీసి, పక్కన ఉన్న ఆరోగ్యకరమైన ఆకుతో పోల్చండి.'},
+      unknown:{headline:()=>'ఈ పరిస్థితిని నమ్మకంగా గుర్తించలేకపోయాం',
+        evidence:()=>'కనిపించిన లక్షణాలు ప్రస్తుతం ధృవీకరించిన పరిస్థితుల పరిధికి బయట ఉన్నాయి. ఆటోమేటిక్ నిర్ధారణ ఇవ్వడం లేదు.',
+        action:()=>'మొక్కను పరిశీలించండి. లక్షణాలు కొనసాగితే స్థానిక వ్యవసాయ నిపుణుల సలహా తీసుకోండి.'},
+      pest:{headline:()=>'పురుగుల బెడద కావచ్చు',
+        evidence:()=>'ఆకు అంచులు కొరికినట్లు, చిన్న రంధ్రాలతో కనిపిస్తున్నాయి — ఇది వ్యాధి లేదా పోషక లోపం కంటే పురుగుల తినడాన్ని సూచిస్తుంది.',
+        action:()=>'ఈరోజు పొలం అంచుల్లో పురుగు కోసం వెతకండి. ముందుగా తక్కువ ఖర్చుతో కూడిన లక్ష్య చికిత్స ప్రయత్నించండి.'}
+    },
+    hi:{
+      healthy:{headline:c=>`${c} अभी ठीक है`,
+        evidence:(m,t,h)=>`इस स्कैन में पत्तियों पर कोई असामान्य बदलाव नहीं दिखा। मिट्टी की नमी ${m}%, तापमान ${t}°C, आर्द्रता ${h}% — सभी सामान्य सीमा में हैं।`,
+        action:()=>'आज कोई कार्रवाई ज़रूरी नहीं है। अगली तय स्कैन में फिर से जांच होगी।'},
+      diseaseA_severe:{headline:n=>`${n} तेज़ी से फैल सकता है`,
+        evidence:(m,t,h)=>`पत्ती पर दिख रहे धब्बे/रंग बदलाव फफूंद रोग जैसे लगते हैं। आर्द्रता ${h}% और मिट्टी की नमी ${m}% — दोनों रोग के तेज़ी से फैलने के लिए अनुकूल हैं।`,
+        action:()=>'आज ही निचली और भीतरी पत्तियों की जांच करें। पत्तियों पर ऊपर से पानी देना बंद करें और ज़्यादा प्रभावित पौधों को अलग करें।'},
+      diseaseA_mild:{headline:n=>`${n} के शुरुआती लक्षण हो सकते हैं`,
+        evidence:(m,t,h)=>`पत्ती पर धब्बे फफूंद रोग जैसे लगते हैं, लेकिन आर्द्रता ${h}% और मिट्टी की नमी ${m}% अभी सिर्फ मध्यम अनुकूल हैं।`,
+        action:()=>'कल फिर वही पत्तियां देखें। धब्बे बढ़ें तो इसे सक्रिय रोग मानें।'},
+      diseaseB_severe:{headline:n=>`${n} — अधिक जोखिम वाली स्थिति`,
+        evidence:(m,t,h)=>`पत्ती का पैटर्न और मौजूदा तापमान (${t}°C) — यह समस्या तेज़ी से फैलने वाली स्थिति से मेल खाते हैं।`,
+        action:()=>'आज पौधे की जांच करें और फैलाव कम करने के लिए इस हिस्से से पौधों का हिस्सा दूसरी जगह न ले जाएं।'},
+      diseaseB_mild:{headline:n=>`${n} के शुरुआती लक्षण हो सकते हैं`,
+        evidence:(m,t,h)=>`पत्ती का पैटर्न इस समस्या से मेल खाता है, लेकिन मौजूदा स्थिति (${t}°C) फैलने के लिए सिर्फ मध्यम अनुकूल है।`,
+        action:()=>'एक-दो दिन में फिर वही पौधा देखें और फैलाव पर नज़र रखें।'},
+      water_stress:{headline:()=>'पानी की कमी हो सकती है, रोग नहीं',
+        evidence:(m)=>`निचली पत्तियां पीली हो रही हैं और मिट्टी की नमी ${m}% कम है। यह पैटर्न पोषक तत्व की कमी से ज़्यादा पानी की कमी जैसा है।`,
+        action:()=>'पानी देने से पहले मिट्टी की नमी और सिंचाई की जरूरत जांचें। 2–3 दिन में वही पत्तियां फिर देखें।'},
+      nutrient:{headline:()=>'पोषक तत्व की कमी हो सकती है',
+        evidence:(m)=>`निचली पत्तियां पीली हो रही हैं, लेकिन मिट्टी की नमी ${m}% पर्याप्त है, इसलिए पानी की कमी की संभावना कम है।`,
+        action:()=>'खाद डालने से पहले स्थानीय फसल-पोषण सलाह से मिलाएं। कुछ दिनों में फिर जांचें।'},
+      unclear:{headline:()=>'चित्र स्पष्ट नहीं है — भरोसेमंद परिणाम नहीं',
+        evidence:()=>'कैमरा इनपुट अस्पष्ट या अधूरा है, इसलिए सिस्टम जबरन निदान नहीं देगा।',
+        action:()=>'अच्छी रोशनी में साफ़ तस्वीर लें और पास की स्वस्थ पत्ती से तुलना करें।'},
+      unknown:{headline:()=>'स्थिति की भरोसेमंद पहचान नहीं हो सकी',
+        evidence:()=>'दिख रहा पैटर्न अभी मान्य किए गए परिदृश्य से बाहर है। कोई स्वचालित निदान नहीं दिया गया है।',
+        action:()=>'पौधे की जांच करें और लक्षण बने रहने पर स्थानीय कृषि सलाह लें।'},
+      pest:{headline:()=>'कीट का प्रकोप हो सकता है',
+        evidence:()=>'पत्ती के किनारे कटे हुए और छोटे छेद दिख रहे हैं — यह रोग या पोषक तत्व की कमी से ज़्यादा कीट के खाने जैसा लगता है।',
+        action:()=>'आज खेत की सीमाओं पर कीट खोजें। पहले कम खर्च वाला उपाय आज़माएं।'}
+    }
+  };
+  const WEATHER_TEXT = {
+    en:{drought:{note:()=>'A drought watch is active for this area.',append:()=>' Also plan water use carefully because of the drought watch.'},
+        flood:{note:()=>'A flood / heavy-rain watch is active for this area.',append:()=>' Check the field drainage because of the rain/flood watch.'},
+        heat:{note:()=>'A heatwave watch is active for this area.',append:()=>' Consider watering early morning or evening during the heatwave.'}},
+    te:{drought:{note:()=>'ఈ ప్రాంతానికి కరువు హెచ్చరిక అమల్లో ఉంది.',append:()=>' కరువు హెచ్చరిక దృష్ట్యా నీటి వాడకాన్ని జాగ్రత్తగా ప్రణాళిక చేయండి.'},
+        flood:{note:()=>'ఈ ప్రాంతానికి వరద / భారీ వర్ష హెచ్చరిక అమల్లో ఉంది.',append:()=>' వర్ష/వరద హెచ్చరిక దృష్ట్యా పొలంలో నీటి పారుదల చూడండి.'},
+        heat:{note:()=>'ఈ ప్రాంతానికి వడగాడ్పు హెచ్చరిక అమల్లో ఉంది.',append:()=>' వడగాడ్పుల సమయంలో ఉదయం లేదా సాయంత్రం నీరు పెట్టడం మంచిది.'}},
+    hi:{drought:{note:()=>'इस क्षेत्र के लिए सूखे की चेतावनी लागू है।',append:()=>' सूखे की चेतावनी को देखते हुए पानी का उपयोग सोच-समझकर करें।'},
+        flood:{note:()=>'इस क्षेत्र के लिए बाढ़ / भारी बारिश की चेतावनी लागू है।',append:()=>' बारिश/बाढ़ की चेतावनी को देखते हुए खेत की जल निकासी जांचें।'},
+        heat:{note:()=>'इस क्षेत्र के लिए लू (गर्मी की लहर) की चेतावनी लागू है।',append:()=>' लू के दौरान सुबह जल्दी या शाम को पानी देना बेहतर रहेगा।'}}
+  };
+  const DISAMBIG_TEXT = {
+    en:'Sensor-assisted check: soil moisture was used to decide between water stress and nutrient deficiency for this hard-to-tell case.',
+    te:'సెన్సార్ ఆధారిత నిర్ధారణ: ఈ అస్పష్టమైన కేసులో నీటి ఎద్దడి, పోషకాల లోపం మధ్య తేల్చడానికి నేల తేమను ఉపయోగించారు.',
+    hi:'सेंसर-सहायक जांच: इस मुश्किल मामले में पानी की कमी और पोषक तत्व की कमी के बीच तय करने के लिए मिट्टी की नमी का उपयोग किया गया।'
+  };
+  const SPEECH_LOCALE = {en:'en-IN', te:'te-IN', hi:'hi-IN'};
+  const STATUS_ICON = {green:'healthy', amber:'diseaseA', red:'diseaseA'};
+  const VOICE_SUPPORTED = ('speechSynthesis' in window);
+  let voices = [];
+  function loadVoices(){ try{ voices = window.speechSynthesis.getVoices() || []; }catch(e){ voices = []; } }
+  if(VOICE_SUPPORTED){ loadVoices(); window.speechSynthesis.onvoiceschanged = loadVoices; }
+  function pickVoice(targetLang){
+    const prefix = (SPEECH_LOCALE[targetLang]||'en-IN').split('-')[0];
+    return voices.find(v => v.lang && v.lang.toLowerCase().startsWith(prefix)) ||
+           voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en')) ||
+           voices[0];
+  }
+
+  /* ---------------- representative camera preview ---------------- */
+  function updateCameraPreview(){
+    const title = document.getElementById('cameraTitle');
+    const meta = document.getElementById('cameraMeta');
+    const frame = document.getElementById('cameraFrame');
+    const cropName = CROP_NAMES.en[cropSelect.value];
+    const cm = CONDITION_META.find(x=>x.id===condition);
+    if(!title || !meta || !frame) return;
+    const label = cm ? cm.labelEn(cropSelect.value) : 'Healthy leaf';
+    title.textContent = 'Camera sample: ' + label;
+    meta.textContent = cropName + ' · representative visual input · simulation only';
+    frame.innerHTML = leafIcon(cm ? cm.kind : 'healthy', 68);
+  }
+
+  /* ---------------- condition chips (dynamic per crop) ---------------- */
+  const conditionChipsEl = document.getElementById('conditionChips');
+  function renderConditionChips(cropKey){
+    conditionChipsEl.innerHTML = CONDITION_META.map(cm=>{
+      const label = cm.labelEn(cropKey);
+      const active = cm.id === condition ? 'active' : '';
+      return `<button class="chip ${active}" data-cond="${cm.id}">${leafIcon(cm.kind,18)}<span>${label}</span></button>`;
+    }).join('');
+  }
+  conditionChipsEl.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    conditionChipsEl.querySelectorAll('.chip').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    condition = btn.dataset.cond;
+    updateCameraPreview();
+  });
+
+  const cropSelect = document.getElementById('cropSelect');
+  cropSelect.addEventListener('change', ()=>{
+    condition = 'healthy';
+    renderConditionChips(cropSelect.value);
+    updateCameraPreview();
+  });
+  renderConditionChips(cropSelect.value);
+  updateCameraPreview();
+
+  const weatherChips = document.querySelectorAll('#weatherChips .chip');
+  weatherChips.forEach(btn=>btn.addEventListener('click',()=>{
+    weatherChips.forEach(b=>b.classList.remove('active'));btn.classList.add('active');weather=btn.dataset.weather;
+  }));
+
+  const connectivityChips = document.querySelectorAll('#connectivityChips .chip');
+  connectivityChips.forEach(btn=>btn.addEventListener('click',()=>{
+    connectivityChips.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    connectivity = btn.dataset.connectivity;
+  }));
+
+  const moisture=document.getElementById('moisture'), temp=document.getElementById('temp'), humidity=document.getElementById('humidity');
+  const moistureVal=document.getElementById('moistureVal'), tempVal=document.getElementById('tempVal'), humidityVal=document.getElementById('humidityVal');
+  moisture.addEventListener('input',()=>moistureVal.textContent=moisture.value+'%');
+  temp.addEventListener('input',()=>tempVal.textContent=temp.value+'°C');
+  humidity.addEventListener('input',()=>humidityVal.textContent=humidity.value+'%');
+
+  const aboutToggle=document.getElementById('aboutToggle'), aboutPanel=document.getElementById('aboutPanel');
+  aboutToggle.addEventListener('click',()=>{const open=aboutPanel.classList.toggle('open');aboutToggle.setAttribute('aria-expanded',open);});
+
+  const langButtons=document.querySelectorAll('.lang-btn');
+  langButtons.forEach(btn=>btn.addEventListener('click',()=>{
+    langButtons.forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    lang=btn.dataset.lang;
+    const emptyTextEl = document.getElementById('emptyText');
+    if(emptyTextEl) emptyTextEl.textContent = UI[lang].empty;
+    if(lastResult) renderScreen(lastResult, lastCrop);
+  }));
+
+  const runBtn=document.getElementById('runBtn');
+  const nodes=document.querySelectorAll('.node');
+  const log=document.getElementById('log');
+  const screen=document.getElementById('screen');
+  const guardrailNote=document.getElementById('guardrailNote');
+
+  const CONDITION_DESC = {healthy:'no visible symptoms', diseaseA:'fungal-pattern spotting', diseaseB:'temperature-linked pattern', yellowing:'lower-leaf yellowing', holes:'chewed edges / holes'};
+
+  function computeResult(cond, cropKey, m, t, h, w){
+    const dis = CROP_DISEASES[cropKey];
+    let color='green', issue='healthy', confidence=90, diseaseName=null;
+
+    if(cond==='diseaseA'){
+      const favourable = (h>=65 && m>=55);
+      issue = favourable ? 'diseaseA_severe' : 'diseaseA_mild';
+      color = favourable ? 'red' : 'amber';
+      confidence = favourable ? 82 : 63;
+      diseaseName = dis.diseaseA;
+    }
+    if(cond==='diseaseB'){
+      const favourable = (t>=32 || w==='flood');
+      issue = favourable ? 'diseaseB_severe' : 'diseaseB_mild';
+      color = favourable ? 'red' : 'amber';
+      confidence = favourable ? 78 : 60;
+      diseaseName = dis.diseaseB;
+    }
+    if(cond==='yellowing'){
+      if(m<35){ issue='water_stress'; color='amber'; confidence=68; }
+      else{ issue='nutrient'; color='amber'; confidence=58; }
+    }
+    if(cond==='holes'){ issue='pest'; color='amber'; confidence=71; }
+    if(cond==='unclear'){ issue='unclear'; color='amber'; confidence=0; }
+    if(cond==='unknown'){ issue='unknown'; color='amber'; confidence=0; }
+
+    let weatherNote=null;
+    if(w==='drought'){
+      weatherNote='drought';
+      if(color==='green') color='amber';
+    } else if(w==='flood'){
+      weatherNote='flood';
+      if(color==='green') color='amber';
+      if(issue.indexOf('diseaseA')===0) color='red';
+    } else if(w==='heat'){
+      weatherNote='heat';
+      if(color==='green' && m<40) color='amber';
+    }
+
+    const iconKind = cond==='holes' ? 'pest' : (cond==='diseaseA' ? 'diseaseA' : cond==='diseaseB' ? 'diseaseB' : cond==='yellowing' ? 'yellowing' : 'healthy');
+    return {color, issue, confidence, weatherNote, m, t, h, disambig:(cond==='yellowing'), diseaseName, iconKind};
+  }
+
+  /* ---------------- voice (only ever triggered by a direct user click) ---------------- */
+  function speak(text){
+    if(!VOICE_SUPPORTED) return false;
+    const btn = document.getElementById('voiceBtn');
+    try{
+      const doSpeak = ()=>{
+        try{
+          const u=new SpeechSynthesisUtterance(text);
+          u.lang = SPEECH_LOCALE[lang] || 'en-IN';
+          const v = pickVoice(lang);
+          if(v){ u.voice = v; u.lang = v.lang; }
+          u.rate=0.92; u.pitch=1; u.volume=1;
+          u.onstart = ()=>{ if(btn){ btn.classList.add('speaking'); } clearVoiceRetry(); };
+          u.onend   = ()=>{ if(btn){ btn.classList.remove('speaking'); } };
+          u.onerror = (ev)=>{ if(btn){ btn.classList.remove('speaking'); } showVoiceRetry(ev && ev.error); };
+          window.speechSynthesis.speak(u);
+          // Some browsers (especially inside sandboxed preview iframes) accept
+          // the call but never fire onstart/onend at all — detect that case too.
+          setTimeout(()=>{
+            if(!window.speechSynthesis.speaking && !window.speechSynthesis.pending && btn && !btn.classList.contains('speaking')){
+              showVoiceRetry('silent');
+            }
+          }, 600);
+        }catch(e){ showVoiceRetry(e && e.name); }
+      };
+      if(window.speechSynthesis.speaking || window.speechSynthesis.pending){
+        window.speechSynthesis.cancel();
+        setTimeout(doSpeak, 80);
+      } else {
+        window.speechSynthesis.resume();
+        doSpeak();
+      }
+      return true;
+    }catch(e){ showVoiceRetry(e && e.name); return false; }
+  }
+  function clearVoiceRetry(){
+    const note = document.getElementById('voiceTechNote');
+    if(note) note.remove();
+  }
+  function showVoiceRetry(reason){
+    const hint = document.querySelector('.voice-hint');
+    if(hint) hint.textContent = UI[lang].voiceRetry;
+    // Extra plain-English technical note for whoever is testing/demoing —
+    // sandboxed preview iframes commonly block speech synthesis outright.
+    const row = document.querySelector('.voice-row');
+    if(row && !document.getElementById('voiceTechNote')){
+      const note = document.createElement('div');
+      note.id = 'voiceTechNote';
+      note.style.cssText = 'font-family:IBM Plex Mono,monospace;font-size:9.5px;color:#8F2C22;margin-top:6px;width:100%;';
+      note.textContent = 'No sound? (' + (reason||'blocked') + ') Try opening this file directly in a full browser tab instead of a preview panel — some previews block audio.';
+      row.appendChild(note);
+    }
+  }
+
+  function renderScreen(result, cropKey){
+    const t = ISSUE_TEXT[lang][result.issue];
+    const ui = UI[lang];
+    const cropName = CROP_NAMES[lang][cropKey];
+    const dname = result.diseaseName ? result.diseaseName[lang] : null;
+    let headline = (result.issue==='healthy') ? t.headline(cropName) : (dname ? t.headline(dname) : t.headline());
+    let evidence = t.evidence(result.m, result.t, result.h);
+    let action = t.action();
+    let weatherLine = '';
+    if(result.weatherNote){
+      const wt = WEATHER_TEXT[lang][result.weatherNote];
+      weatherLine = ' ' + wt.note();
+      action += wt.append();
+      if(result.color!=='green' && result.issue==='healthy'){
+        headline = ui.status.amber;
+      }
+    }
+    const spokenLine = [headline, evidence + weatherLine, action].join('. ');
+
+    const voiceBlock = VOICE_SUPPORTED
+      ? `<div class="voice-row">
+           <button class="voice-btn" id="voiceBtn" aria-label="${ui.voiceHint}" title="${ui.voiceHint}">🔊</button>
+           <span class="voice-hint" lang="${lang}">${ui.voiceHint}</span>
+         </div>`
+      : `<div class="voice-unsupported">${ui.voiceUnsupported}</div>`;
+
+    screen.className='screen';
+    screen.innerHTML = `
+      <div class="crop-tag">${cropName.toUpperCase()} · ${ui.scanTag}</div>
+      ${voiceBlock}
+      <div class="status-row">
+        <span class="status-icon-svg">${leafIcon(result.iconKind,26)}</span>
+        <span class="status-dot ${result.color}"></span>
+        <span class="status-label ${result.color}" data-lang="${lang}">${ui.status[result.color]}</span>
+      </div>
+      <p class="headline" data-lang="${lang}">${headline}</p>
+      <div class="evidence-box" lang="${lang}"><b>${ui.why}</b>${evidence}${weatherLine}</div>
+      <div class="action-box" lang="${lang}"><b>${ui.whatToDo}</b>${action}</div>
+      <div class="num-menu">
+        <button class="num-btn" lang="${lang}" id="btnPlay"><span class="n">1</span> ${ui.menu.play}</button>
+        <button class="num-btn" lang="${lang}" id="btnEvidence"><span class="n">2</span> ${ui.menu.detail}</button>
+        <button class="num-btn" lang="${lang}" id="btnHelp"><span class="n">4</span> ${ui.menu.help}</button>
+        <button class="num-btn" lang="${lang}" id="btnFeedback"><span class="n">✓</span> ${ui.menu.feedback}</button>
+      </div>
+      <div class="reveal" id="revealBox" lang="${lang}">
+        ${result.disambig ? '<span class="r-label">'+ui.sensorSnap+'</span>' + DISAMBIG_TEXT[lang] : ''}
+        <span class="r-label">${ui.sensorSnap}</span>${result.m}% soil · ${result.t}°C · ${result.h}% RH
+        <span class="r-label">Input mode</span>Representative camera scenario · ${connectivity === 'offline' ? 'local/offline simulation' : 'online sync simulation'}
+        <span class="r-label">AI status</span>Proposed edge model — simulation layer, not a trained-model score
+      </div>
+      <div class="confidence-note">${ui.confNote}</div>
+    `;
+
+    if(VOICE_SUPPORTED){
+      document.getElementById('voiceBtn').addEventListener('click',()=>speak(spokenLine));
+    }
+    document.getElementById('btnPlay').addEventListener('click',()=>speak(spokenLine));
+    document.getElementById('btnEvidence').addEventListener('click',(e)=>{
+      const box = document.getElementById('revealBox');
+      box.classList.toggle('open');
+      if(box.classList.contains('open')) box.scrollIntoView({block:'nearest', behavior: reduceMotion ? 'auto' : 'smooth'});
+    });
+    document.getElementById('btnHelp').addEventListener('click',()=>alert(ui.helpAlert));
+    document.getElementById('btnFeedback').addEventListener('click',(e)=>{
+      e.target.closest('.num-btn').innerHTML = `<span class="n">✓</span> ${ui.menu.feedbackDone}`;
+    });
+  }
+
+  function runScan(){
+    runBtn.disabled=true; runBtn.textContent='Scanning…';
+    nodes.forEach(n=>n.classList.remove('active','done'));
+    log.innerHTML=''; guardrailNote.classList.remove('show');
+
+    const cropKey = cropSelect.value;
+    lastCrop = cropKey;
+    const m=parseInt(moisture.value,10), t=parseInt(temp.value,10), h=parseInt(humidity.value,10);
+    const result = computeResult(condition, cropKey, m, t, h, weather);
+    lastResult = result;
+
+    const rawADC = Math.round(4095 - (m/100)*4095);
+    document.getElementById('soilReadout').textContent = rawADC + ' raw → ' + m + '%';
+    document.getElementById('dhtReadout').textContent = t + '°C / ' + h + '%';
+    document.getElementById('camReadout').textContent = 'representative frame';
+    document.getElementById('mcuReadout').textContent = 'simulating sensor + image fusion…';
+    ['soilBox','dhtBox','camBox'].forEach(id=>document.getElementById(id).classList.add('pulse-on'));
+
+    const steps=[
+      {label:'FARMER / FIELD', text:'Scan requested in the field.'},
+      {label:'INPUT CAPTURE', text:`Representative camera scenario (${CONDITION_DESC[condition]}) + simulated soil ${m}%, ${t}°C, humidity ${h}%.`},
+      {label:'EDGE AI', text:'Proposed lightweight model layer — represented here by the simulation.'},
+      {label:'RISK ENGINE', text:`Weather context: ${weather === 'normal' ? 'no alert' : weather + ' watch active'}; connectivity: ${connectivity}.`},
+      {label:'DECISION LAYER', text: result.issue==='unknown' || result.issue==='unclear' ? 'Uncertainty guardrail: do not force a diagnosis; request better evidence.' : (result.disambig ? 'Ambiguous case — using soil moisture to disambiguate.' : 'Combining visual scenario with field + weather context.')},
+      {label:'FARMER ACTION', text:"Preparing alert card + spoken explanation in the farmer's language."}
+    ];
+    const stepDelay = reduceMotion ? 0 : 480;
+
+    steps.forEach((step,i)=>{
+      setTimeout(()=>{
+        nodes.forEach((n,idx)=>{
+          if(idx<i){n.classList.add('done');n.classList.remove('active');}
+          if(idx===i){n.classList.add('active');n.classList.remove('done');}
+        });
+        if(i===1){
+          try{
+            document.getElementById('pulseSoil').beginElement();
+            document.getElementById('pulseDht').beginElement();
+            document.getElementById('pulseCam').beginElement();
+          }catch(e){}
+        }
+        if(i===2){ document.getElementById('mcuReadout').textContent = 'proposed model stage'; }
+        if(i===4){ guardrailNote.classList.add('show'); }
+        const line=document.createElement('div');
+        line.className='line'; line.style.animationDelay='0.02s';
+        line.textContent = step.label + ' — ' + step.text;
+        log.appendChild(line); log.scrollTop=log.scrollHeight;
+
+        if(i===steps.length-1){
+          setTimeout(()=>{
+            nodes.forEach(n=>{n.classList.add('done');n.classList.remove('active');});
+            ['soilBox','dhtBox','camBox'].forEach(id=>document.getElementById(id).classList.remove('pulse-on'));
+            document.getElementById('mcuReadout').textContent='standing by…';
+            renderScreen(result, cropKey);
+            runBtn.disabled=false; runBtn.textContent='▶ Run field scan';
+          }, stepDelay);
+        }
+      }, i*stepDelay);
+    });
+  }
+  runBtn.addEventListener('click', runScan);
+
+  /* ---------------- interactive knowledge data ---------------- */
+  /*
+   * The disease names below are sourced directly from the existing simulator data.
+   * The supporting guidance is deliberately conservative: it describes verification,
+   * prevention and management principles without inventing pesticide products,
+   * concentrations, dosages or schedules.
+   */
+  const DISEASE_DATA = {};
+  const DISEASE_TEMPLATES = {
+    diseaseA:{
+      kind:'diseaseA',
+      preview:'Leaf spotting/discoloration pattern used by this prototype for a fungal-type scenario.',
+      identification:[
+        'The prototype uses a representative leaf spotting/discoloration pattern for preliminary identification.',
+        'Visual symptoms can overlap with other causes, so inspect several leaves and compare with trusted local guidance.'
+      ],
+      precautions:[
+        'Avoid treating a visual signal as a confirmed diagnosis.',
+        'Inspect affected and nearby plants before deciding on a response.',
+        'Follow local crop-stage and field-safety guidance when taking any management action.'
+      ],
+      prevention:[
+        'Monitor the field regularly and remove or manage affected plant material according to local guidance.',
+        'Avoid unnecessary leaf wetness and improve field airflow where practical.',
+        'Use locally appropriate, verified crop-management advice for the specific disease.'
+      ],
+      management:'Start with field verification and sanitation/management practices appropriate to the crop and confirmed problem. Pesticide / chemical control: Use only locally approved agricultural products according to the crop, disease, region and product label. Confirm the diagnosis before application.',
+      verification:'AI-assisted preliminary identification only. Verify symptoms, crop stage and local agricultural guidance before treatment.'
+    },
+    diseaseB:{
+      kind:'diseaseB',
+      preview:'Temperature/weather-linked leaf pattern used by this prototype for a second disease scenario.',
+      identification:[
+        'The prototype uses a representative temperature/weather-linked leaf pattern for preliminary identification.',
+        'The camera signal is combined with simulated field context; it is not a confirmed field diagnosis.'
+      ],
+      precautions:[
+        'Check multiple plants and leaves rather than relying on one image.',
+        'Consider recent weather and field history when verifying the suspected problem.',
+        'Do not apply a chemical treatment solely because the simulation names a disease.'
+      ],
+      prevention:[
+        'Maintain regular scouting and remove or manage affected material according to local advice.',
+        'Monitor weather-linked risk and keep field conditions appropriate for the crop.',
+        'Use crop- and region-specific prevention guidance from qualified agricultural sources.'
+      ],
+      management:'Verify the suspected problem first, then follow locally approved integrated crop-management guidance. Pesticide / chemical control: Use only locally approved agricultural products according to the crop, disease, region and product label. Confirm the diagnosis before application.',
+      verification:'AI-assisted preliminary identification only. Verify symptoms, crop stage, weather context and local agricultural guidance before treatment.'
+    }
+  };
+
+  Object.keys(CROP_DISEASES).forEach(cropKey=>{
+    DISEASE_DATA[cropKey] = {};
+    ['diseaseA','diseaseB'].forEach(diseaseKey=>{
+      const source = CROP_DISEASES[cropKey][diseaseKey];
+      const template = DISEASE_TEMPLATES[diseaseKey];
+      DISEASE_DATA[cropKey][diseaseKey] = {
+        id:diseaseKey,
+        plant:CROP_NAMES.en[cropKey],
+        plantNames:CROP_NAMES[cropKey],
+        disease:source,
+        kind:template.kind,
+        preview:template.preview,
+        identification:template.identification.slice(),
+        precautions:template.precautions.slice(),
+        prevention:template.prevention.slice(),
+        management:template.management,
+        verification:template.verification
+      };
+    });
+  });
+
+  const CONDITION_DATA = {
+    yellowing:{
+      id:'yellowing',
+      plant:'All crops',
+      disease:{en:'Water stress vs. nutrient deficiency',te:'నీటి ఎద్దడి vs. పోషకాల లోపం',hi:'पानी की कमी बनाम पोषक तत्वों की कमी'},
+      kind:'yellowing',
+      preview:'Ambiguous lower-leaf yellowing; the existing simulator uses soil moisture as a cautious disambiguation signal.',
+      identification:[
+        'The existing simulator treats lower-leaf yellowing as an ambiguous condition rather than a single confirmed diagnosis.',
+        'Soil moisture is used as a simulated context signal to distinguish possible water stress from possible nutrient deficiency.'
+      ],
+      precautions:[
+        'Check soil moisture and the plant as a whole before adding water or nutrients.',
+        'Do not infer a nutrient deficiency from yellowing alone.'
+      ],
+      prevention:[
+        'Monitor irrigation and crop condition consistently.',
+        'Use crop- and region-specific nutrient guidance rather than guessing from leaf colour alone.'
+      ],
+      management:'Verify the cause first. For water stress, check actual irrigation need; for possible nutrient deficiency, compare symptoms with local crop-nutrient guidance before adding fertiliser.',
+      verification:'The simulator explicitly treats this as an ambiguous case. Verify soil, crop stage and symptoms with local guidance before action.'
+    },
+    holes:{
+      id:'holes',
+      plant:'All crops',
+      disease:{en:'Pest damage',te:'పురుగు నష్టం',hi:'कीट क्षति'},
+      kind:'pest',
+      preview:'Chewed edges / small holes used by the prototype as a representative pest-activity scenario.',
+      identification:[
+        'The prototype uses chewed edges and small holes as a representative visual cue for possible pest activity.',
+        'Inspect the plant and field to identify the actual cause before selecting a management response.'
+      ],
+      precautions:[
+        'Inspect both sides of leaves and nearby plants before taking action.',
+        'Avoid applying a chemical treatment based on the image pattern alone.'
+      ],
+      prevention:[
+        'Scout regularly, especially field edges and newly affected plants.',
+        'Use locally appropriate integrated pest-management practices.'
+      ],
+      management:'Confirm pest presence and identify the problem before selecting a control method. Pesticide / chemical control: Use only locally approved agricultural products according to the crop, pest, region and product label. Confirm the diagnosis before application.',
+      verification:'AI-assisted preliminary identification only. Confirm the pest and its level of activity in the field before treatment.'
+    }
+  };
+
+  const SCENARIO_DATA = [];
+  Object.keys(DISEASE_DATA).forEach(cropKey=>{
+    ['diseaseA','diseaseB'].forEach(diseaseKey=>{
+      const d=DISEASE_DATA[cropKey][diseaseKey];
+      SCENARIO_DATA.push({
+        id:`${cropKey}-${diseaseKey}`,
+        cropKey,
+        condition:diseaseKey,
+        name:d.disease.en,
+        crop:d.plant,
+        problem:d.disease.en,
+        preview:d.preview,
+        camera:'Representative leaf image showing the visual pattern used by the simulator.',
+        sensors:'Soil moisture, temperature and humidity provide simulated field context; weather state can add a risk modifier.',
+        interpretation:'The prototype combines a representative camera scenario with simulated sensor/weather context. This is an interpretation workflow, not a validated diagnosis.',
+        precautions:d.precautions,
+        prevention:d.prevention,
+        management:d.management,
+        verify:d.verification
+      });
+    });
+  });
+  SCENARIO_DATA.push({
+    id:'all-yellowing',
+    cropKey:'tomato',
+    condition:'yellowing',
+    name:'Water stress vs. nutrient deficiency',
+    crop:'All crops',
+    problem:'Ambiguous lower-leaf yellowing',
+    preview:CONDITION_DATA.yellowing.preview,
+    camera:'Representative lower-leaf yellowing pattern.',
+    sensors:'Soil moisture is the key simulated context signal; temperature and humidity remain available as field context.',
+    interpretation:'The existing simulator uses soil moisture to cautiously distinguish possible water stress from possible nutrient deficiency.',
+    precautions:CONDITION_DATA.yellowing.precautions,
+    prevention:CONDITION_DATA.yellowing.prevention,
+    management:CONDITION_DATA.yellowing.management,
+    verify:CONDITION_DATA.yellowing.verification
+  });
+  SCENARIO_DATA.push({
+    id:'all-pest',
+    cropKey:'tomato',
+    condition:'holes',
+    name:'Pest damage',
+    crop:'All crops',
+    problem:'Chewed edges / small holes',
+    preview:CONDITION_DATA.holes.preview,
+    camera:'Representative chewed-edge / small-hole pattern.',
+    sensors:'The existing simulator keeps soil moisture, temperature and humidity available, but pest activity is primarily a visual field cue here.',
+    interpretation:'The prototype flags possible pest activity from the representative camera pattern and asks the farmer to verify in the field.',
+    precautions:CONDITION_DATA.holes.precautions,
+    prevention:CONDITION_DATA.holes.prevention,
+    management:CONDITION_DATA.holes.management,
+    verify:CONDITION_DATA.holes.verification
+  });
+
+  const FUTURE_DATA = [
+    {
+      id:'crop-varieties',
+      icon:'🌾',
+      name:'More crop varieties',
+      preview:'Extend the library beyond the crops currently represented in this prototype.',
+      useful:'Broader crop coverage could make the proposed system relevant to more farming contexts.',
+      implementation:'Add verified crop-specific classes, UI terminology and scenario mappings to the same data-driven architecture.',
+      benefit:'A wider, maintainable coverage area without changing the interaction model.',
+      work:'Additional crop images, expert-reviewed labels, crop-stage context, model training and field testing.',
+      validation:'Validate each crop and class on representative field data before deployment.'
+    },
+    {
+      id:'disease-classes',
+      icon:'🧪',
+      name:'More disease classes',
+      preview:'Expand the representative disease library after measured testing.',
+      useful:'More classes could reduce the number of cases that fall into an unclear or unknown state.',
+      implementation:'Add new validated classes to the disease data structure and retrain/re-evaluate the lightweight model.',
+      benefit:'Potentially more useful preliminary identification across a carefully bounded crop set.',
+      work:'Curated field datasets, expert labels, class-balance checks, model evaluation and uncertainty calibration.',
+      validation:'Require measured validation against held-out field data before presenting a class as supported.'
+    },
+    {
+      id:'regional-adaptation',
+      icon:'📍',
+      name:'Regional / local crop adaptation',
+      preview:'Adapt terminology, risk context and guidance to local agricultural conditions.',
+      useful:'Local crop practices, climate and terminology can change how farmers interpret a recommendation.',
+      implementation:'Add region-aware configuration, approved advisory sources and localized language/content packs.',
+      benefit:'More relevant farmer-facing explanations and context.',
+      work:'Regional datasets, agronomy review, localization and validation across representative districts.',
+      validation:'Validate regional outputs with qualified agricultural experts and field observations.'
+    },
+    {
+      id:'sensor-expansion',
+      icon:'◉',
+      name:'Additional sensor types',
+      preview:'Proposed expansion from the current moisture, temperature and humidity concept.',
+      useful:'Additional field signals could provide more context for risk and condition analysis.',
+      implementation:'Integrate new sensor interfaces and extend the fusion layer with calibrated measurements.',
+      benefit:'Richer field context and potentially better uncertainty handling.',
+      work:'Hardware integration, calibration, power/connectivity testing, data quality monitoring and model/fusion work.',
+      validation:'Bench-test and field-test each sensor and its contribution before using it for decisions.'
+    },
+    {
+      id:'edge-deployment',
+      icon:'▣',
+      name:'Physical edge-AI deployment',
+      preview:'Move the proposed inference layer from this webpage simulation to real hardware.',
+      useful:'Local inference is intended to support offline-first operation and lower dependence on connectivity.',
+      implementation:'Deploy a validated lightweight model to the target edge hardware and connect camera/sensor inputs.',
+      benefit:'A real field device that can process inputs locally when connectivity is limited.',
+      work:'Physical hardware, optimized model, power management, thermal/performance testing and field validation.',
+      validation:'Validate end-to-end accuracy, latency, robustness and failure handling on real hardware and field data.'
+    },
+    {
+      id:'validated-dataset',
+      icon:'◫',
+      name:'Larger validated agricultural dataset',
+      preview:'Build a stronger field dataset before widening model claims.',
+      useful:'Representative field data is important for testing robustness beyond controlled images.',
+      implementation:'Collect, label, quality-check and version field images with crop, region, stage and context metadata.',
+      benefit:'A more credible basis for model evaluation and future expansion.',
+      work:'Data governance, expert annotation, representative sampling, privacy/consent processes and benchmark design.',
+      validation:'Use independent held-out evaluation and document limitations before deployment.'
+    }
+  ];
+
+  /* ---------------- shared interactive-card rendering ---------------- */
+  const diseaseGrid = document.getElementById('diseaseGrid');
+  const scenarioGrid = document.getElementById('scenarioGrid');
+  const futureGrid = document.getElementById('futureGrid');
+
+  function escapeHtml(value){
+    return String(value == null ? '' : value)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+      .replace(/'/g,'&#039;');
+  }
+
+  function listHtml(items){
+    return `<ul>${(items||[]).map(item=>`<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
+  }
+
+  function localizedCrop(cropKey){
+    return (CROP_NAMES[lang] && CROP_NAMES[lang][cropKey]) || CROP_NAMES.en[cropKey] || cropKey;
+  }
+
+  function localizedDisease(disease){
+    if(!disease) return '';
+    return disease[lang] || disease.en || '';
+  }
+
+  function diseaseCardHtml(cropKey,diseaseKey){
+    const d=DISEASE_DATA[cropKey][diseaseKey];
+    const label=localizedDisease(d.disease);
+    return `
+      <button class="interactive-card disease-card" type="button" data-card-type="disease" data-card-id="${cropKey}:${diseaseKey}" aria-label="Open details for ${escapeHtml(label)} on ${escapeHtml(localizedCrop(cropKey))}">
+        ${leafIcon(d.kind,44)}
+        <span>
+          <span class="dcrop">${escapeHtml(localizedCrop(cropKey))}</span>
+          <span class="dname">${escapeHtml(label)}</span>
+          <span class="dpattern">${escapeHtml(d.preview)}</span>
+          <span class="card-hint">Click for details</span>
+        </span>
+        <span class="preview-pop" aria-hidden="true">
+          <strong>🌿 ${escapeHtml(localizedCrop(cropKey))}</strong>
+          <span class="preview-disease">${escapeHtml(label)}</span>
+          <p>${escapeHtml(d.preview)}</p>
+          <em>Click for details</em>
+        </span>
+      </button>`;
+  }
+
+  function conditionCardHtml(conditionKey){
+    const d=CONDITION_DATA[conditionKey];
+    return `
+      <button class="interactive-card disease-card" type="button" data-card-type="condition" data-card-id="${conditionKey}" aria-label="Open details for ${escapeHtml(d.disease.en)}">
+        ${leafIcon(d.kind,44)}
+        <span>
+          <span class="dcrop">${escapeHtml(d.plant)}</span>
+          <span class="dname">${escapeHtml(localizedDisease(d.disease))}</span>
+          <span class="dpattern">${escapeHtml(d.preview)}</span>
+          <span class="card-hint">Click for details</span>
+        </span>
+        <span class="preview-pop" aria-hidden="true">
+          <strong>🌿 ${escapeHtml(d.plant)}</strong>
+          <span class="preview-disease">${escapeHtml(localizedDisease(d.disease))}</span>
+          <p>${escapeHtml(d.preview)}</p>
+          <em>Click for details</em>
+        </span>
+      </button>`;
+  }
+
+  function renderDiseaseLibrary(){
+    let html='';
+    Object.keys(DISEASE_DATA).forEach(cropKey=>{
+      html += diseaseCardHtml(cropKey,'diseaseA') + diseaseCardHtml(cropKey,'diseaseB');
+    });
+    html += conditionCardHtml('yellowing') + conditionCardHtml('holes');
+    diseaseGrid.innerHTML=html;
+  }
+
+  function renderScenarioCards(){
+    scenarioGrid.innerHTML=SCENARIO_DATA.map(s=>`
+      <button class="interactive-card scenario-card" type="button" data-card-type="scenario" data-card-id="${escapeHtml(s.id)}" aria-label="Open scenario ${escapeHtml(s.name)}">
+        <span class="scenario-icon" aria-hidden="true">${s.condition==='diseaseA'?'🍃':s.condition==='diseaseB'?'🌿':s.condition==='yellowing'?'◌':'◉'}</span>
+        <span>
+          <span class="card-kicker">SUPPORTED SCENARIO</span>
+          <span class="card-title">${escapeHtml(s.name)}</span>
+          <span class="card-summary">${escapeHtml(s.crop)} · ${escapeHtml(s.problem)}</span>
+          <span class="card-hint">Click for details</span>
+        </span>
+        <span class="preview-pop" aria-hidden="true">
+          <strong>${escapeHtml(s.name)}</strong>
+          <span class="preview-disease">${escapeHtml(s.crop)} · ${escapeHtml(s.problem)}</span>
+          <p>${escapeHtml(s.preview)}</p>
+          <em>Click for details</em>
+        </span>
+      </button>
+    `).join('');
+  }
+
+  function renderFutureCards(){
+    futureGrid.innerHTML=FUTURE_DATA.map(f=>`
+      <button class="interactive-card future-card" type="button" data-card-type="future" data-card-id="${escapeHtml(f.id)}" aria-label="Open future expansion ${escapeHtml(f.name)}">
+        <span class="future-icon" aria-hidden="true">${f.icon}</span>
+        <span>
+          <span class="card-kicker">FUTURE EXPANSION</span>
+          <span class="card-title">${escapeHtml(f.name)}</span>
+          <span class="card-summary">${escapeHtml(f.preview)}</span>
+          <span class="future-status">PLANNED — NOT CURRENTLY VALIDATED</span>
+          <span class="card-hint">Click for details</span>
+        </span>
+        <span class="preview-pop" aria-hidden="true">
+          <strong>${escapeHtml(f.name)}</strong>
+          <span class="preview-disease">FUTURE EXPANSION · NOT CURRENTLY VALIDATED</span>
+          <p>${escapeHtml(f.preview)}</p>
+          <em>Click for details</em>
+        </span>
+      </button>
+    `).join('');
+  }
+
+  renderDiseaseLibrary();
+  renderScenarioCards();
+  renderFutureCards();
+
+  /* ---------------- modal system ---------------- */
+  const infoModal=document.getElementById('infoModal');
+  const infoModalDialog=document.getElementById('infoModalDialog');
+  const modalTitle=document.getElementById('modalTitle');
+  const modalSubtitle=document.getElementById('modalSubtitle');
+  const modalKicker=document.getElementById('modalKicker');
+  const modalBody=document.getElementById('modalBody');
+  const modalClose=document.getElementById('modalClose');
+  const scenarioToast=document.getElementById('scenarioToast');
+  let modalOpen=false;
+  let lastFocusedElement=null;
+  let toastTimer=null;
+
+  function openModal(type,id){
+    lastFocusedElement=document.activeElement;
+    let content='';
+    if(type==='disease'){
+      const [cropKey,diseaseKey]=id.split(':');
+      const d=DISEASE_DATA[cropKey] && DISEASE_DATA[cropKey][diseaseKey];
+      if(!d) return;
+      modalKicker.textContent='ASTRANEX · DISEASE LIBRARY';
+      modalTitle.textContent='🌿 '+localizedCrop(cropKey);
+      modalSubtitle.textContent=localizedDisease(d.disease);
+      content=`
+        <div class="modal-badge">AI-assisted preliminary identification · Prototype simulation</div>
+        <section class="modal-section"><h4>1. Identification</h4>${listHtml(d.identification)}</section>
+        <section class="modal-section"><h4>2. Precautions</h4>${listHtml(d.precautions)}</section>
+        <section class="modal-section"><h4>3. Prevention</h4>${listHtml(d.prevention)}</section>
+        <section class="modal-section"><h4>4. Control / Management</h4><p>${escapeHtml(d.management)}</p></section>
+        <div class="verification-note"><b>Verification Note</b><br>${escapeHtml(d.verification)}</div>
+        <div class="ai-note"><b>AI assistance vs. confirmed diagnosis:</b> The webpage presents a representative camera scenario and simulated sensor context. It does not provide a medically/agriculturally validated diagnosis. Verify symptoms before treatment.</div>
+        <div class="modal-actions">
+          <button class="modal-action secondary" type="button" data-modal-close>Close</button>
+          <button class="modal-action primary" type="button" data-use-simulation data-crop="${cropKey}" data-condition="${diseaseKey}" data-label="${escapeHtml(localizedCrop(cropKey))} — ${escapeHtml(localizedDisease(d.disease))}">▶ USE IN SIMULATION</button>
+        </div>`;
+    }else if(type==='condition'){
+      const d=CONDITION_DATA[id];
+      if(!d) return;
+      modalKicker.textContent='ASTRANEX · CONDITION LIBRARY';
+      modalTitle.textContent='🌿 '+d.plant;
+      modalSubtitle.textContent=localizedDisease(d.disease);
+      content=`
+        <div class="modal-badge">AI-assisted preliminary identification · Prototype simulation</div>
+        <section class="modal-section"><h4>1. Identification</h4>${listHtml(d.identification)}</section>
+        <section class="modal-section"><h4>2. Precautions</h4>${listHtml(d.precautions)}</section>
+        <section class="modal-section"><h4>3. Prevention</h4>${listHtml(d.prevention)}</section>
+        <section class="modal-section"><h4>4. Control / Management</h4><p>${escapeHtml(d.management)}</p></section>
+        <div class="verification-note"><b>Verification Note</b><br>${escapeHtml(d.verification)}</div>
+        <div class="ai-note"><b>AI assistance vs. confirmed diagnosis:</b> This is a prototype simulation of preliminary identification and field-context reasoning, not a validated agricultural diagnosis. Verify symptoms before treatment.</div>
+        <div class="modal-actions">
+          <button class="modal-action secondary" type="button" data-modal-close>Close</button>
+          <button class="modal-action primary" type="button" data-use-simulation data-crop="tomato" data-condition="${id}" data-label="${escapeHtml(d.plant)} — ${escapeHtml(localizedDisease(d.disease))}">▶ USE IN SIMULATION</button>
+        </div>`;
+    }else if(type==='scenario'){
+      const sc=SCENARIO_DATA.find(x=>x.id===id);
+      if(!sc) return;
+      modalKicker.textContent='ASTRANEX · SUPPORTED SCENARIO';
+      modalTitle.textContent='◈ '+sc.name;
+      modalSubtitle.textContent=sc.crop+' · '+sc.problem;
+      content=`
+        <div class="modal-badge">SUPPORTED SCENARIO · Representative simulation input</div>
+        <section class="modal-section"><h4>Scenario</h4><p><b>Crop / plant:</b> ${escapeHtml(sc.crop)}<br><b>Problem / condition:</b> ${escapeHtml(sc.problem)}</p></section>
+        <section class="modal-section"><h4>What the camera observes</h4><p>${escapeHtml(sc.camera)}</p></section>
+        <section class="modal-section"><h4>What the sensors contribute</h4><p>${escapeHtml(sc.sensors)}</p></section>
+        <section class="modal-section"><h4>Identification / Interpretation</h4><p>${escapeHtml(sc.interpretation)}</p></section>
+        <section class="modal-section"><h4>Precautions</h4>${listHtml(sc.precautions)}</section>
+        <section class="modal-section"><h4>Prevention</h4>${listHtml(sc.prevention)}</section>
+        <section class="modal-section"><h4>Recommended management approach</h4><p>${escapeHtml(sc.management)}</p></section>
+        <div class="verification-note"><b>What the farmer should verify</b><br>${escapeHtml(sc.verify)}</div>
+        <div class="ai-note"><b>Prototype boundary:</b> Camera input, sensor values and the proposed edge-AI layer are simulated in this webpage. The scenario demonstrates workflow, not validated diagnostic performance.</div>
+        <div class="modal-actions">
+          <button class="modal-action secondary" type="button" data-modal-close>Close</button>
+          <button class="modal-action primary" type="button" data-run-scenario data-crop="${escapeHtml(sc.cropKey)}" data-condition="${escapeHtml(sc.condition)}" data-label="${escapeHtml(sc.name)}">▶ RUN SCENARIO</button>
+        </div>`;
+    }else if(type==='future'){
+      const f=FUTURE_DATA.find(x=>x.id===id);
+      if(!f) return;
+      modalKicker.textContent='ASTRANEX · FUTURE EXPANSION';
+      modalTitle.textContent=f.icon+' '+f.name;
+      modalSubtitle.textContent='PLANNED — NOT CURRENTLY VALIDATED';
+      content=`
+        <div class="modal-badge">FUTURE EXPANSION · PLANNED — NOT CURRENTLY VALIDATED</div>
+        <section class="modal-section"><h4>Why it is useful</h4><p>${escapeHtml(f.useful)}</p></section>
+        <section class="modal-section"><h4>Proposed implementation</h4><p>${escapeHtml(f.implementation)}</p></section>
+        <section class="modal-section"><h4>Expected benefit</h4><p>${escapeHtml(f.benefit)}</p></section>
+        <section class="modal-section"><h4>Additional hardware / data / model work required</h4><p>${escapeHtml(f.work)}</p></section>
+        <div class="verification-note"><b>Validation required before deployment</b><br>${escapeHtml(f.validation)}</div>
+        <div class="ai-note"><b>Status:</b> This item is a roadmap concept only. It is not presented as currently implemented, operational or validated by this webpage.</div>
+        <div class="modal-actions"><button class="modal-action secondary" type="button" data-modal-close>Close</button></div>`;
+    }else{
+      return;
+    }
+
+    modalBody.innerHTML=content;
+    infoModal.classList.add('open');
+    infoModal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    modalOpen=true;
+    requestAnimationFrame(()=>modalClose.focus());
+  }
+
+  function closeModal(){
+    if(!modalOpen) return;
+    infoModal.classList.remove('open');
+    infoModal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    modalOpen=false;
+    if(lastFocusedElement && typeof lastFocusedElement.focus==='function'){
+      try{ lastFocusedElement.focus(); }catch(e){}
+    }
+  }
+
+  function showToast(message){
+    if(!scenarioToast) return;
+    scenarioToast.textContent=message;
+    scenarioToast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(()=>scenarioToast.classList.remove('show'),3200);
+  }
+
+  function scrollToSimulator(){
+    const simulator=document.getElementById('simulator');
+    if(simulator) simulator.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'start'});
+  }
+
+  function loadSimulation(cropKey,conditionKey,label){
+    if(cropKey && cropSelect && CROP_DISEASES[cropKey]) cropSelect.value=cropKey;
+    if(conditionKey) condition=conditionKey;
+    if(cropSelect) renderConditionChips(cropSelect.value);
+    updateCameraPreview();
+    closeModal();
+    scrollToSimulator();
+    showToast('Scenario loaded: '+label);
+  }
+
+  infoModal.addEventListener('click',e=>{
+    if(e.target===infoModal) closeModal();
+    const closeBtn=e.target.closest('[data-modal-close]');
+    if(closeBtn){ closeModal(); return; }
+    const useBtn=e.target.closest('[data-use-simulation]');
+    if(useBtn){
+      loadSimulation(useBtn.dataset.crop,useBtn.dataset.condition,useBtn.dataset.label);
+      return;
+    }
+    const runBtnModal=e.target.closest('[data-run-scenario]');
+    if(runBtnModal){
+      loadSimulation(runBtnModal.dataset.crop,runBtnModal.dataset.condition,runBtnModal.dataset.label);
+      return;
+    }
+  });
+
+  [diseaseGrid,scenarioGrid,futureGrid].forEach(grid=>{
+    grid.addEventListener('click',e=>{
+      const card=e.target.closest('[data-card-type]');
+      if(!card) return;
+      openModal(card.dataset.cardType,card.dataset.cardId);
+    });
+    grid.addEventListener('keydown',e=>{
+      const card=e.target.closest('[data-card-type]');
+      if(card && (e.key==='Enter' || e.key===' ')){
+        e.preventDefault();
+        openModal(card.dataset.cardType,card.dataset.cardId);
+      }
+    });
+  });
+
+  modalClose.addEventListener('click',closeModal);
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape' && modalOpen){
+      e.preventDefault();
+      closeModal();
+    }
+    if(e.key==='Tab' && modalOpen){
+      const focusable=infoModalDialog.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])');
+      if(!focusable.length) return;
+      const first=focusable[0], last=focusable[focusable.length-1];
+      if(e.shiftKey && document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first.focus();}
+    }
+  });
+
+})(); 
+</script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+AstraNex — KshetraSaarthi
+Version: v11.1 Bug-Fix Build
+Focus: backend connectivity, CORS, image analysis reliability, India-first offline map, location accuracy, offline sync, UI status correctness.

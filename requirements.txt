@@ -1,0 +1,8 @@
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+pydantic>=2.7,<3
+python-multipart>=0.0.9,<1
+# Real image/model inference:
+pillow>=10,<13
+onnxruntime>=1.18,<2
+huggingface_hub>=0.24,<1
