@@ -1,0 +1,17 @@
+{
+  "crop": "tomato",
+  "source": "Configured defaults consistent with backend/services/irrigation.py v3.2 thresholds. Not an externally validated agronomic dataset — treat as a configurable starting point, not scientific ground truth.",
+  "growth_stages": ["seedling", "vegetative", "flowering", "fruiting"],
+  "soil_moisture_threshold_pct": {
+    "seedling": 38,
+    "vegetative": 40,
+    "flowering": 42,
+    "fruiting": 44
+  },
+  "temperature_comfort_c": {"low": 18, "high": 32},
+  "humidity_disease_watch_pct": 70,
+  "known_disease_categories": ["Early Blight", "Late/temperature-linked pattern"],
+  "known_pest_categories": ["Chewing insects (holes/edges)"],
+  "nutrient_indicators": ["Lower-leaf yellowing (possible nitrogen deficiency or water stress)"],
+  "validation_status": "NOT_FIELD_VALIDATED"
+}

@@ -1,0 +1,17 @@
+{
+  "crop": "wheat",
+  "source": "Illustrative configurable defaults for demo/config purposes only. Not an externally validated agronomic dataset.",
+  "growth_stages": ["seedling", "vegetative", "flowering", "fruiting"],
+  "soil_moisture_threshold_pct": {
+    "seedling": 32,
+    "vegetative": 34,
+    "flowering": 36,
+    "fruiting": 30
+  },
+  "temperature_comfort_c": {"low": 10, "high": 28},
+  "humidity_disease_watch_pct": 75,
+  "known_disease_categories": ["Representative disease A", "Representative disease B"],
+  "known_pest_categories": ["Chewing insects (holes/edges)"],
+  "nutrient_indicators": ["Lower-leaf yellowing (possible nitrogen deficiency or water stress)"],
+  "validation_status": "NOT_FIELD_VALIDATED"
+}

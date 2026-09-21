@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AstraNex — KshetraSaarthi · Quantum Agricultural Intelligence</title>
+<meta name="description" content="Early pest and crop-disease warning for India's fields using hybrid classical–quantum machine learning. Experimental Qiskit prototype.">
+<meta name="theme-color" content="#070B09">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/astranex.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>⚛️</text></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<!-- ============================ NAVIGATION ============================ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#/home">
+      <svg class="brand-glyph" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="17" fill="none" stroke="#1F9C7A" stroke-width="1.4"/>
+        <ellipse cx="20" cy="20" rx="17" ry="6.5" fill="none" stroke="#5FE3B4" stroke-width="1.2" opacity=".75"/>
+        <ellipse cx="20" cy="20" rx="6.5" ry="17" fill="none" stroke="#E9B44C" stroke-width="1.2" opacity=".6"/>
+        <path d="M20 29c0-5 2.4-8.6 6-10.4-.5 5.3-2.6 8.6-6 10.4Zm0 0c0-5-2.4-8.6-6-10.4.5 5.3 2.6 8.6 6 10.4Z" fill="#5FE3B4"/>
+        <circle cx="20" cy="20" r="2.6" fill="#E9B44C"/>
+      </svg>
+      <span class="brand-text"><b>AstraNex — KshetraSaarthi</b><span>Quantum Agricultural Intelligence</span></span>
+    </a>
+    <button class="burger" id="burger" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="nav" id="nav">
+      <a href="#/home" data-nav="home">Home</a>
+      <a href="#/farmer" data-nav="farmer">Farmer dashboard</a>
+      <a href="#/intelligence" data-nav="intelligence">Intelligence</a>
+      <a href="#/scan" data-nav="scan">Field scan</a>
+      <a href="#/quantum" data-nav="quantum">Quantum lab</a>
+      <a href="#/warnings" data-nav="warnings">Early warnings</a>
+      <a href="#/network" data-nav="network">India network</a>
+      <a href="#/analytics" data-nav="analytics">Analytics</a>
+      <a href="#/library" data-nav="library">Disease library</a>
+      <a href="#/research" data-nav="research">Research</a>
+      <a href="#/about" data-nav="about">About</a>
+    </nav>
+    <div class="top-actions">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button data-lang="en" aria-pressed="true">EN</button>
+        <button data-lang="te" aria-pressed="false">తె</button>
+        <button data-lang="hi" aria-pressed="false">हि</button>
+      </div>
+      <button class="btn small gold" id="demoBtn">Demo mode</button>
+    </div>
+  </div>
+</header>
+
+<!-- live system status rail -->
+<div class="statusbar">
+  <div class="statusbar-inner">
+    <span><i class="dot" id="stBackendDot"></i>Backend <b id="stBackend">checking…</b></span>
+    <span><i class="dot" id="stVisionDot"></i>Vision <b id="stVision">checking…</b></span>
+    <span><i class="dot" id="stQuantumDot"></i>Quantum layer <b id="stQuantum">checking…</b></span>
+    <span><i class="dot" id="stNetDot"></i>Connection <b id="stNet">online</b></span>
+    <span id="stQueueWrap" class="hide"><i class="dot warn"></i>Queued offline scans <b id="stQueue">0</b></span>
+  </div>
+</div>
+
+<main id="main-content">
+
+<!-- ========================== FARMER DASHBOARD ========================== -->
+<div class="page" id="page-farmer">
+  <section>
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">Farmer-first view</p>
+        <h2>Your field at a glance</h2>
+        <p class="lede">A simple field view for daily decisions. Technical model details remain in the Intelligence and Quantum Lab pages.</p>
+      </div>
+      <div id="farmerBody" class="stack"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================================ HOME ================================ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="shell hero-inner">
+      <div>
+        <p class="mono">Qiskit Fall Fest 2026 · experimental prototype</p>
+        <h1>Quantum intelligence<br>for <em>India's fields</em></h1>
+        <p class="hero-sub">Early warning for crop disease and pest outbreaks using hybrid classical–quantum machine learning.</p>
+        <p class="hero-support">AstraNex — KshetraSaarthi combines crop imagery, field sensors, weather intelligence and experimental QML to turn agricultural signals into actionable early warnings.</p>
+        <div class="hero-cta">
+          <button class="btn" data-go="scan">Scan a field</button>
+          <button class="btn ghost" data-go="quantum">See the quantum layer</button>
+        </div>
+        <div class="hero-flags">
+          <span>4 qubits · quantum feature encoding</span>
+          <span data-runtime-badge>Quantum runtime · checking</span>
+          <span>Offline-first</span>
+          <span>EN · తెలుగు · हिन्दी</span>
+        </div>
+      </div>
+      <figure class="hero-stage" aria-label="Data flow from an Indian field through the hybrid model to an early warning">
+        <svg viewBox="0 0 520 380" role="img">
+          <defs>
+            <linearGradient id="soilg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#1b3b2b"/><stop offset="1" stop-color="#2a2318"/>
+            </linearGradient>
+            <linearGradient id="skyg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#0c1712"/><stop offset="1" stop-color="#132019"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="520" height="380" rx="18" fill="url(#skyg)"/>
+          <!-- field -->
+          <path d="M0 300c90-22 180-22 260-8s180 16 260-6v94H0Z" fill="url(#soilg)"/>
+          <g stroke="#5FE3B4" stroke-opacity=".5">
+            <path d="M40 336c26-10 54-12 84-6M150 342c30-12 62-14 96-6M290 340c32-12 64-12 96-4"/>
+          </g>
+          <g fill="#3f7a55">
+            <circle cx="70" cy="318" r="6"/><circle cx="130" cy="324" r="6"/><circle cx="196" cy="316" r="6"/>
+            <circle cx="268" cy="326" r="6"/><circle cx="340" cy="318" r="6"/><circle cx="410" cy="326" r="6"/>
+          </g>
+          <!-- drone -->
+          <g transform="translate(232 62)">
+            <rect x="-22" y="-6" width="44" height="12" rx="5" fill="#16241C" stroke="#5FE3B4" stroke-opacity=".6"/>
+            <path d="M-30-8h16M14-8h16" stroke="#5FE3B4" stroke-width="2"/>
+            <circle cx="0" cy="8" r="4" fill="#E9B44C" class="pulse-node"/>
+          </g>
+          <!-- capture cone -->
+          <path d="M232 76 168 244h128Z" fill="#5FE3B4" fill-opacity=".05" stroke="#5FE3B4" stroke-opacity=".22"/>
+          <!-- three data streams -->
+          <g stroke-width="1.6" fill="none">
+            <path class="flowline" d="M96 300C96 250 150 236 210 214" stroke="#E9B44C" stroke-opacity=".85"/>
+            <path class="flowline" d="M232 250V214" stroke="#5FE3B4" stroke-opacity=".85"/>
+            <path class="flowline" d="M400 306c0-56-60-64-146-92" stroke="#7FB2FF" stroke-opacity=".7"/>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#7C8F84">
+            <text x="42" y="292">sensors</text><text x="206" y="264">crop image</text><text x="374" y="300">weather</text>
+          </g>
+          <!-- qubit register -->
+          <g transform="translate(112 126)">
+            <rect x="-14" y="-28" width="300" height="88" rx="12" fill="#0C1310" stroke="#5FE3B4" stroke-opacity=".3"/>
+            <text x="-6" y="-12" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#5FE3B4">4-QUBIT VARIATIONAL CIRCUIT</text>
+            <g stroke="#2c4438">
+              <path d="M6 4h268M6 20h268M6 36h268M6 52h268"/>
+            </g>
+            <g fill="#16241C" stroke="#E9B44C" stroke-opacity=".7">
+              <rect x="22" y="-4" width="20" height="16" rx="3"/><rect x="22" y="12" width="20" height="16" rx="3"/>
+              <rect x="22" y="28" width="20" height="16" rx="3"/><rect x="22" y="44" width="20" height="16" rx="3"/>
+            </g>
+            <g fill="#16241C" stroke="#5FE3B4" stroke-opacity=".7">
+              <rect x="146" y="-4" width="20" height="16" rx="3"/><rect x="146" y="12" width="20" height="16" rx="3"/>
+              <rect x="146" y="28" width="20" height="16" rx="3"/><rect x="146" y="44" width="20" height="16" rx="3"/>
+            </g>
+            <g stroke="#5FE3B4" stroke-opacity=".75">
+              <path d="M104 4v16M104 36v16"/>
+              <circle cx="104" cy="4" r="3" fill="#5FE3B4"/><circle cx="104" cy="36" r="3" fill="#5FE3B4"/>
+              <circle cx="104" cy="20" r="5" fill="none"/><circle cx="104" cy="52" r="5" fill="none"/>
+            </g>
+            <g fill="#DCEBE1" font-family="IBM Plex Mono, monospace" font-size="7">
+              <text x="25" y="8">RY</text><text x="25" y="24">RY</text><text x="25" y="40">RY</text><text x="25" y="56">RY</text>
+              <text x="149" y="8">RZ</text><text x="149" y="24">RZ</text><text x="149" y="40">RZ</text><text x="149" y="56">RZ</text>
+            </g>
+            <g stroke="#7C8F84"><path d="M228 -4v64"/></g>
+            <text x="234" y="30" font-family="IBM Plex Mono, monospace" font-size="8" fill="#7C8F84">⟨Z⟩</text>
+          </g>
+          <!-- early warning readout -->
+          <g transform="translate(150 224)">
+            <rect x="0" y="0" width="220" height="40" rx="10" fill="rgba(232,97,60,.12)" stroke="#E8613C" stroke-opacity=".5"/>
+            <circle cx="22" cy="20" r="6" fill="#E8613C" class="pulse-node"/>
+            <text x="40" y="17" font-family="Bricolage Grotesque, sans-serif" font-size="13" fill="#F0A07F">Early warning issued</text>
+            <text x="40" y="31" font-family="IBM Plex Mono, monospace" font-size="8" fill="#A9BBAF">scout block · confirm locally · act early</text>
+          </g>
+        </svg>
+              <div class="qreg" aria-hidden="true"><span class="qcap">|ψ⟩ 4-QUBIT REGISTER</span><svg class="qb" viewBox="0 0 46 46"><circle cx="23" cy="23" r="19" fill="none" stroke="#9B8CFF" stroke-opacity=".55"/><ellipse cx="23" cy="23" rx="19" ry="7" fill="none" stroke="#7FD8FF" stroke-opacity=".4"/><line class="arrow" x1="23" y1="23" x2="23" y2="6" stroke="#5FE3B4" stroke-width="2.2" stroke-linecap="round"/><circle cx="23" cy="23" r="2" fill="#E9B44C"/></svg><span class="qlink"></span><svg class="qb" viewBox="0 0 46 46"><circle cx="23" cy="23" r="19" fill="none" stroke="#9B8CFF" stroke-opacity=".55"/><ellipse cx="23" cy="23" rx="19" ry="7" fill="none" stroke="#7FD8FF" stroke-opacity=".4"/><line class="arrow" x1="23" y1="23" x2="23" y2="6" stroke="#5FE3B4" stroke-width="2.2" stroke-linecap="round"/><circle cx="23" cy="23" r="2" fill="#E9B44C"/></svg><span class="qlink"></span><svg class="qb" viewBox="0 0 46 46"><circle cx="23" cy="23" r="19" fill="none" stroke="#9B8CFF" stroke-opacity=".55"/><ellipse cx="23" cy="23" rx="19" ry="7" fill="none" stroke="#7FD8FF" stroke-opacity=".4"/><line class="arrow" x1="23" y1="23" x2="23" y2="6" stroke="#5FE3B4" stroke-width="2.2" stroke-linecap="round"/><circle cx="23" cy="23" r="2" fill="#E9B44C"/></svg><span class="qlink"></span><svg class="qb" viewBox="0 0 46 46"><circle cx="23" cy="23" r="19" fill="none" stroke="#9B8CFF" stroke-opacity=".55"/><ellipse cx="23" cy="23" rx="19" ry="7" fill="none" stroke="#7FD8FF" stroke-opacity=".4"/><line class="arrow" x1="23" y1="23" x2="23" y2="6" stroke="#5FE3B4" stroke-width="2.2" stroke-linecap="round"/><circle cx="23" cy="23" r="2" fill="#E9B44C"/></svg></div>
+      </figure>
+    </div>
+  </div>
+
+  <section class="paper">
+    <div class="shell">
+      <div class="section-head">
+        <h2>Late detection is the loss</h2>
+        <p class="lede">By the time a pest or disease outbreak is visible across a block, most of the yield decision has already been made. The prototype's job is to shorten the gap between the first signal in a field and the first action taken on it.</p>
+      </div>
+      <div class="grid g3">
+        <div class="card">
+          <h3>What we see today</h3>
+          <p>A leaf photo, three low-cost sensors and local weather context. Each on its own is weak evidence; fused, they carry a usable early signal.</p>
+        </div>
+        <div class="card">
+          <h3>Where quantum enters</h3>
+          <p>The fused agricultural features are encoded onto four qubits and classified by a variational quantum circuit — run beside a classical baseline on identical inputs, never instead of it. The exact encoding depends on which engine is active; the Quantum Lab names it precisely.</p>
+        </div>
+        <div class="card">
+          <h3>Who acts on it</h3>
+          <p>Farmers get one plain next step. Field officers, RBKs, departments and insurers get the evidence trail, confidence and history behind it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">Signal path</p>
+        <h2>From field signals to early warnings</h2>
+        <p class="lede">Every stage below runs in this prototype. Follow the same path yourself in Field scan, or let Demo mode drive it.</p>
+      </div>
+      <div class="grid g4" id="homeFlow"></div>
+    </div>
+  </section>
+
+  <section class="paper">
+    <div class="shell">
+      <div class="split">
+        <div>
+          <p class="mono">National applicability</p>
+          <h2>Built for India's agricultural intelligence network</h2>
+          <p class="lede">Designed for scalable deployment across India's diverse agricultural regions — different crops, soils, languages and connectivity realities. No deployment is claimed; the architecture is what scales.</p>
+          <div class="grid g2" style="margin-top:1.4rem">
+            <div><b>Agriculture &amp; Horticulture Departments</b><p class="dim">Regional risk distribution and early-warning aggregation.</p></div>
+            <div><b>Rythu Bharosa Kendras</b><p class="dim">Field-officer screening with an evidence trail per scan.</p></div>
+            <div><b>Farmers and farmer groups</b><p class="dim">One clear action, in the local language, offline if needed.</p></div>
+            <div><b>Insurers and researchers</b><p class="dim">Structured field history, confidence and model provenance.</p></div>
+          </div>
+          <button class="btn gold" data-go="network" style="margin-top:1.2rem">Open India network</button>
+        </div>
+        <div class="map-wrap" id="homeMapWrap"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">Roadmap</p>
+        <h2>What exists now, and what comes next</h2>
+        <p class="lede">Implemented capability and future expansion are kept visibly separate. Nothing below the current row is claimed as working today.</p>
+      </div>
+      <div class="grid g3" id="homeRoadmap"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">Prototype status</p>
+        <h2>Functional proof-of-concept</h2>
+        <p class="lede">The prototype demonstrates an end-to-end agricultural early-warning workflow combining crop imagery, field and context data, classical feature processing and an experimental Qiskit-based QML layer. Real-world multispectral deployment, large-scale field validation and practical quantum advantage remain future validation stages.</p>
+      </div>
+      <div class="split">
+        <div class="card" id="statusBadges"></div>
+        <div class="stack">
+          <div class="notice">No quantum advantage is claimed. Benchmarks run on a labelled demonstration dataset and the circuit executes on a simulator, never on quantum hardware.</div>
+          <div class="card">
+            <h3>Judge's 60 seconds</h3>
+            <div class="stack" style="gap:.6rem;margin-top:.6rem">
+              <div><b>Problem.</b> <span class="dim">Crop disease and pest outbreaks are detected too late.</span></div>
+              <div><b>Solution.</b> <span class="dim">Fuse crop imagery, sensors and weather into an early-warning signal.</span></div>
+              <div><b>Quantum.</b> <span class="dim">A 4-qubit variational classifier over that multimodal feature space, in Qiskit.</span></div>
+              <div><b>Impact.</b> <span class="dim">Targeted, earlier intervention for farmers, RBKs, departments and insurers.</span></div>
+              <div><b>Scale.</b> <span class="dim">Crops, states, sensors and remote-sensing sources are additive inputs, not rewrites.</span></div>
+            </div>
+            <div class="row" style="margin-top:1rem">
+              <button class="btn small" id="demoBtn2">Run demo mode</button>
+              <button class="btn small ghost" data-go="research">Read the research notes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================ INTELLIGENCE ============================ -->
+<div class="page" id="page-intelligence">
+  <section>
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">Field intelligence</p>
+        <h2>The current state of your field</h2>
+        <p class="lede">A single field view for both audiences: the farmer-facing condition and action on the left, the technical evidence, sensor trust and model provenance on the right.</p>
+      </div>
+      <div id="intelBody" class="stack"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================= FIELD SCAN ============================= -->
+<div class="page" id="page-scan">
+  <section>
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">Field scan</p>
+        <h2>Capture, fuse, analyse</h2>
+        <p class="lede">Select a field, add a crop image and the current field conditions, then run the analysis. The classical pipeline always runs; the experimental quantum layer runs alongside it when available.</p>
+      </div>
+      <div class="split">
+        <div class="stack">
+          <div class="card">
+            <h3>1 · Field, location and crop</h3>
+            <div class="location-panel" id="scanLocationPanel">
+              <div class="row" style="justify-content:space-between"><div><b>Field location</b><p class="dim" style="font-size:.82rem;margin:0">Type a village, mandal, district or landmark. AstraNex will suggest Indian locations and keep the selection for this scan.</p></div><span class="tag" id="locationStatus">Location optional</span></div>
+              <div class="row" style="margin-top:.7rem"><input class="input" id="locationInput" placeholder="e.g. Idupulapaya, Kadapa, Andhra Pradesh" autocomplete="off" style="flex:1;min-width:230px"><button class="btn small ghost" id="locationSearch">Find location</button></div>
+              <div id="locationResults" class="location-results hide"></div>
+              <div class="field-map-card" aria-label="Selectable India field map">
+                <div class="field-map-toolbar"><span class="mono">INDIA FIELD MAP</span><span class="dim">Click the map to choose a field point</span></div>
+                <div class="field-map-canvas" id="fieldMapCanvas">
+                  <img src="/assets/india_map.png" alt="Map of India for selecting a field location" draggable="false">
+                  <div class="field-map-marker hide" id="fieldMapMarker" aria-hidden="true"></div>
+                </div>
+                <div class="field-map-actions"><button class="btn small ghost" id="useMyLocation" type="button">Use my location</button><span class="dim" id="mapHint">Search, click the map, or use GPS.</span></div>
+              </div>
+              <div id="selectedLocation" class="selected-location hide"></div>
+            </div>
+            <div class="grid g2" style="margin-top:.8rem">
+              <div><label for="scanField">Field</label><select class="input" id="scanField"></select></div>
+              <div><label for="scanCrop">Crop</label><select class="input" id="scanCrop"></select></div>
+              <div><label for="scanStage">Growth stage</label><select class="input" id="scanStage">
+                <option value="seedling">Seedling</option><option value="vegetative" selected>Vegetative</option>
+                <option value="flowering">Flowering</option><option value="fruiting">Fruiting</option>
+              </select></div>
+              <div><label for="scanSensorTrust">Sensor reliability</label><select class="input" id="scanSensorTrust">
+                <option value="1">Healthy (100%)</option><option value="0.85">Slightly noisy (85%)</option>
+                <option value="0.6">Degraded (60%)</option><option value="0.35">Faulty (35%)</option>
+              </select></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>2 · Crop image</h3>
+            <p class="dim" style="font-size:.88rem">JPEG, PNG or WebP up to 2 MB. Fill the frame with one leaf or a small crop area. Image quality is scored before any diagnosis is attempted.</p>
+            <div class="image-quality-tip"><span>📸</span><div><b>For the best AI result</b><span class="dim">Use one leaf, good lighting, minimal blur, and fill most of the frame.</span></div></div>
+            <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose or drop a crop image">
+              <div style="font-size:2rem">📷</div>
+              <b>Choose or drop a crop image</b>
+              <div class="dim" style="font-size:.85rem">Optional — sensor and weather context alone still produce an analysis.</div>
+            </div>
+            <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" class="hide">
+            <div class="model-prep-card" id="modelPrepCard"><div><b>AI vision model</b><span class="dim">The app can prepare the optional PlantVillage ONNX weights locally when internet access is available.</span></div><button class="btn small ghost" id="prepareModelBtn">Prepare AI model</button></div>
+            <div id="previewWrap" class="hide" style="margin-top:.9rem">
+              <div class="preview"><img id="previewImg" alt="Selected crop image"></div>
+              <div class="row" style="margin-top:.6rem">
+                <span class="tag" id="previewMeta"></span>
+                <button class="btn small ghost" id="clearImage">Remove image</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>3 · Field conditions</h3>
+            <div class="stack" style="margin-top:.8rem">
+              <div><label for="scanMoisture">Soil moisture <span class="slider-val" id="valMoisture">45%</span></label><input type="range" id="scanMoisture" min="0" max="100" value="45"></div>
+              <div><label for="scanTemp">Temperature <span class="slider-val" id="valTemp">29°C</span></label><input type="range" id="scanTemp" min="5" max="50" value="29"></div>
+              <div><label for="scanHumidity">Humidity <span class="slider-val" id="valHumidity">55%</span></label><input type="range" id="scanHumidity" min="10" max="100" value="55"></div>
+              <div><label for="scanRain">Rainfall in the last 48 hours <span class="slider-val" id="valRain">0 mm</span></label><input type="range" id="scanRain" min="0" max="80" value="0"></div>
+              <div>
+                <label>Weather context</label>
+                <div class="chip-row" id="weatherChips"></div>
+              </div>
+              <div>
+                <label>Visible symptom (used when no image is supplied)</label>
+                <div class="chip-row" id="conditionChips"></div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn block" id="analyzeBtn">Analyse field</button>
+          <div class="notice hide" id="scanNotice"></div>
+        </div>
+
+        <div class="stack">
+          <div class="card">
+            <h3>Analysis pipeline</h3>
+            <div class="scan-stages scan-track" id="scanStages"></div>
+            <div class="mono" id="scanTimer">idle</div>
+          </div>
+          <div class="card">
+            <h3>Offline behaviour</h3>
+            <p class="dim" style="font-size:.9rem">If the backend is unreachable, the scan is stored on this device and queued. When the connection returns, queued scans sync to <code>/api/sync</code> and appear in history.</p>
+            <div class="row"><span class="tag" id="offlineState">Online</span><button class="btn small ghost" id="syncNow">Sync queued scans</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="scanResult" class="hide" style="margin-top:2.4rem"></div>
+      <div id="scanHistory" style="margin-top:2.4rem"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================= QUANTUM LAB ============================= -->
+<div class="page" id="page-quantum">
+  <section>
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">Quantum intelligence</p>
+        <h2>What Qiskit actually does here</h2>
+        <p class="lede">Eight multimodal agricultural features are ranked, the strongest four are encoded onto four qubits, and a variational circuit trained by a classical optimiser produces an outbreak-risk probability. The circuit and the exact encoding shown below are read back from the model that actually runs — never a static diagram.</p>
+      </div>
+      <div id="quantumBody" class="stack"></div>
+    </div>
+  </section>
+</div>
+
+<!-- =========================== EARLY WARNINGS =========================== -->
+<div class="page" id="page-warnings">
+  <section>
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">Early warning centre</p>
+        <h2>What needs attention now</h2>
+        <p class="lede">Warnings raised by stored scans, plus the demonstration field set. Each card carries its confidence, its evidence and the recommended next check.</p>
+      </div>
+      <div id="warningsBody" class="stack"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================ FIELD NETWORK ============================ -->
+<div class="page" id="page-network">
+  <section>
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">India network</p>
+        <h2>Built for India's agricultural intelligence network</h2>
+        <p class="lede">Demonstration fields across six states, each computed by the real engine. Select a node to inspect its condition, risk profile and recommended action.</p>
+      </div>
+      <div id="networkBody" class="split"></div>
+    </div>
+  </section>
+</div>
+
+<!-- =============================== ANALYTICS =============================== -->
+<div class="page" id="page-analytics">
+  <section>
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">Institutional analytics</p>
+        <h2>Regional agricultural intelligence</h2>
+        <p class="lede">Aggregated risk distribution across monitored fields. Prototype data only — no national statistics are represented.</p>
+      </div>
+      <div id="analyticsBody" class="stack"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================ DISEASE LIBRARY ============================ -->
+<div class="page" id="page-library">
+  <section>
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">Disease library</p>
+        <h2>Identification and monitoring reference</h2>
+        <p class="lede">Reference material for common crop diseases in Indian cropping systems, with names in English, Telugu and Hindi. Informational only — no pesticide prescriptions are issued.</p>
+      </div>
+      <div class="row" style="margin-bottom:1.4rem">
+        <input class="input" id="libSearch" placeholder="Search a disease, crop or symptom" style="max-width:340px">
+        <div class="chip-row" id="libCrops"></div>
+      </div>
+      <div class="grid g3" id="libraryBody"></div>
+    </div>
+  </section>
+</div>
+
+<!-- =============================== RESEARCH =============================== -->
+<div class="page" id="page-research">
+  <section class="paper">
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">Research notes</p>
+        <h2>The hybrid model, in full</h2>
+        <p class="lede">Written for technical judges: what is implemented, what is simulated, what is unproven, and what would have to be true for this to matter in a real season.</p>
+      </div>
+      <div id="researchBody" class="stack"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================================= ABOUT ================================= -->
+<div class="page" id="page-about">
+  <section>
+    <div class="shell">
+      <div class="section-head">
+        <p class="mono">About</p>
+        <h2>AstraNex — KshetraSaarthi</h2>
+        <p class="lede">A scalable hybrid classical–quantum agricultural early-warning prototype designed for India's agricultural ecosystem, built for Qiskit Fall Fest 2026 on top of the existing AstraNex decision-support backend.</p>
+      </div>
+      <div id="aboutBody" class="stack"></div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="shell foot-grid">
+    <div>
+      <b style="font-family:var(--display);font-size:1.1rem">AstraNex — KshetraSaarthi</b>
+      <p class="dim" style="font-size:.88rem;max-width:42ch">Quantum Agricultural Intelligence · Early pest and crop-disease warning using hybrid AI and quantum machine learning. Decision support only; verify locally before treatment.</p>
+      <span class="tag sim">Prototype · experimental quantum layer</span>
+    </div>
+    <div>
+      <a href="#/farmer">Farmer dashboard</a><a href="#/scan">Field scan</a><a href="#/quantum">Quantum lab</a><a href="#/warnings">Early warnings</a><a href="#/analytics">Analytics</a>
+    </div>
+    <div>
+      <a href="#/research">Research notes</a><a href="#/about">Prototype status</a><a href="/docs">API documentation</a><a href="/legacy">Original interface</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/static/js/data.js"></script>
+<script src="/static/js/i18n.js"></script>
+<script src="/static/js/api.js"></script>
+<script src="/static/js/viz.js"></script>
+<script src="/static/js/pages.js"></script>
+<script src="/static/js/quantum-bg.js"></script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>

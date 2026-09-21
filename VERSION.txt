@@ -1,0 +1,17 @@
+AstraNex — KshetraSaarthi
+Quantum-Enhanced Build v3.3.0
+2026-09-20
+
+v3.3 builds on v3.2's real quantum-state analysis, calibrated India map, and honest-labelling
+guarantees, and adds: a unified Data Quality Score, richer sensor anomaly detection (including
+stuck/repeated-reading detection), a structured INFO/WATCH/WARNING/CRITICAL alert engine with
+What/Why/Check/Action explanations, configurable crop profiles (config/crops/*.json), time-series
+field history with an honest "not enough historical data" state, a farm-events timeline, a
+weather-provider abstraction that degrades gracefully instead of crashing, an experimental
+quantum circuit-sensitivity sweep (explicitly not validated feature importance), and a one-click,
+clearly-labelled Demo Mode with six scenarios that never writes to real farmer data.
+
+The package still does not fabricate agricultural accuracy. Real vision weights, Qiskit ML
+artifacts, and expert-labelled field validation remain explicit external release gates. See
+CHANGELOG_v3.3.md, docs/ARCHITECTURE_V3.3.md, SECURITY.md, TESTING.md and DEMO_GUIDE.md for detail
+on exactly what changed, what was verified, and what remains future work.

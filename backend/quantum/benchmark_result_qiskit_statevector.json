@@ -1,0 +1,335 @@
+{
+ "status": "complete",
+ "mode": "qiskit_statevector",
+ "generated_at": 1789951690.9789262,
+ "evaluation_label": "Demonstration / Experimental Evaluation",
+ "evaluation_note": "Scenarios are synthetic but are processed by the real AstraNex risk engine. Labels are a forward-weather outbreak proxy, not field-verified ground truth. No field validation has been performed.",
+ "dataset_type": "demonstration_synthetic",
+ "qiskit_installed": true,
+ "qiskit_machine_learning_installed": true,
+ "qiskit_version": "2.5.2",
+ "qiskit_machine_learning_version": "0.9.1",
+ "python_version": "3.14.4",
+ "execution_backend": "Qiskit state-vector simulator (qiskit.quantum_info.Statevector)",
+ "execution_label": "Qiskit execution",
+ "qiskit_execution": true,
+ "qubits": 4,
+ "quantum_engine": "builtin_vqc",
+ "model_version": 1,
+ "hardware_execution": false,
+ "quantum_advantage_claimed": false,
+ "dataset": {
+  "size": 360,
+  "train": 253,
+  "test": 107,
+  "positives": 102,
+  "negatives": 258,
+  "seed": 2026
+ },
+ "features": {
+  "available": [
+   "disease_signal",
+   "soil_moisture",
+   "temperature",
+   "humidity",
+   "water_risk",
+   "heat_risk",
+   "sensor_reliability",
+   "image_confidence"
+  ],
+  "selected": [
+   "disease_signal",
+   "image_confidence",
+   "heat_risk",
+   "temperature"
+  ],
+  "ranking": [
+   {
+    "feature": "disease_signal",
+    "label": "Disease signal",
+    "correlation": 0.8883,
+    "spread": 0.3114,
+    "score": 0.72073,
+    "source": "Risk engine \u00b7 vision + context fusion"
+   },
+   {
+    "feature": "image_confidence",
+    "label": "Image confidence",
+    "correlation": 0.183,
+    "spread": 0.3342,
+    "score": 0.15263,
+    "source": "ONNX vision inference confidence"
+   },
+   {
+    "feature": "heat_risk",
+    "label": "Heat stress risk",
+    "correlation": 0.0813,
+    "spread": 0.3903,
+    "score": 0.07239,
+    "source": "Risk engine \u00b7 temperature + weather"
+   },
+   {
+    "feature": "temperature",
+    "label": "Temperature",
+    "correlation": 0.095,
+    "spread": 0.1707,
+    "score": 0.06374,
+    "source": "Field sensor \u00b7 climate module"
+   },
+   {
+    "feature": "sensor_reliability",
+    "label": "Sensor reliability",
+    "correlation": 0.08,
+    "spread": 0.2503,
+    "score": 0.06002,
+    "source": "Sensor health assessment"
+   },
+   {
+    "feature": "humidity",
+    "label": "Humidity",
+    "correlation": 0.0588,
+    "spread": 0.2183,
+    "score": 0.04221,
+    "source": "Field sensor \u00b7 climate module"
+   },
+   {
+    "feature": "soil_moisture",
+    "label": "Soil moisture",
+    "correlation": 0.025,
+    "spread": 0.2601,
+    "score": 0.01898,
+    "source": "Field sensor (capacitive probe / simulator)"
+   },
+   {
+    "feature": "water_risk",
+    "label": "Water risk",
+    "correlation": 0.0042,
+    "spread": 0.3262,
+    "score": 0.00346,
+    "source": "Risk engine \u00b7 moisture + weather"
+   }
+  ],
+  "method": "|Pearson correlation with early-warning label| x (0.5 + standard deviation)"
+ },
+ "classical": {
+  "model": "Logistic regression",
+  "implementation": "scikit-learn",
+  "metrics": {
+   "accuracy": 95.33,
+   "precision": 96.3,
+   "recall": 86.67,
+   "f1": 91.23,
+   "confusion": {
+    "tp": 26,
+    "tn": 76,
+    "fp": 1,
+    "fn": 4
+   },
+   "support": 107,
+   "inference_ms_per_sample": 0.0023
+  },
+  "coefficients": [
+   {
+    "feature": "disease_signal",
+    "weight": 5.9493
+   },
+   {
+    "feature": "image_confidence",
+    "weight": 0.2186
+   },
+   {
+    "feature": "heat_risk",
+    "weight": 0.012
+   },
+   {
+    "feature": "temperature",
+    "weight": 0.3988
+   }
+  ],
+  "training": {
+   "implementation": "scikit-learn",
+   "model": "Logistic regression",
+   "epochs": null,
+   "samples": 253,
+   "final_loss": 0.19319,
+   "training_seconds": 0.02
+  }
+ },
+ "quantum": {
+  "model": "Variational quantum classifier (4 qubits, 2 layers)",
+  "engine": "builtin_vqc",
+  "feature_map": "Angle encoding (RY, feature \u2192 [0, \u03c0])",
+  "ansatz": "Custom RY/RZ variational block with alternating CX ring",
+  "qubits": 4,
+  "metrics": {
+   "accuracy": 95.33,
+   "precision": 96.3,
+   "recall": 86.67,
+   "f1": 91.23,
+   "confusion": {
+    "tp": 26,
+    "tn": 76,
+    "fp": 1,
+    "fn": 4
+   },
+   "support": 107,
+   "inference_ms_per_sample": 3.1681
+  },
+  "training": {
+   "optimizer": "SPSA (simultaneous perturbation stochastic approximation)",
+   "iterations": 120,
+   "batch_size": 64,
+   "samples": 253,
+   "final_loss": 0.25477,
+   "loss_history": [
+    {
+     "iteration": 0,
+     "loss": 1.548
+    },
+    {
+     "iteration": 5,
+     "loss": 0.71272
+    },
+    {
+     "iteration": 10,
+     "loss": 0.70872
+    },
+    {
+     "iteration": 15,
+     "loss": 0.65318
+    },
+    {
+     "iteration": 20,
+     "loss": 0.61382
+    },
+    {
+     "iteration": 25,
+     "loss": 0.52561
+    },
+    {
+     "iteration": 30,
+     "loss": 0.39535
+    },
+    {
+     "iteration": 35,
+     "loss": 0.46382
+    },
+    {
+     "iteration": 40,
+     "loss": 0.4129
+    },
+    {
+     "iteration": 45,
+     "loss": 0.41794
+    },
+    {
+     "iteration": 50,
+     "loss": 0.33134
+    },
+    {
+     "iteration": 55,
+     "loss": 0.4139
+    },
+    {
+     "iteration": 60,
+     "loss": 0.24358
+    },
+    {
+     "iteration": 65,
+     "loss": 0.32045
+    },
+    {
+     "iteration": 70,
+     "loss": 0.35106
+    },
+    {
+     "iteration": 75,
+     "loss": 0.25002
+    },
+    {
+     "iteration": 80,
+     "loss": 0.26349
+    },
+    {
+     "iteration": 85,
+     "loss": 0.34609
+    },
+    {
+     "iteration": 90,
+     "loss": 0.30373
+    },
+    {
+     "iteration": 95,
+     "loss": 0.2554
+    },
+    {
+     "iteration": 100,
+     "loss": 0.24355
+    },
+    {
+     "iteration": 105,
+     "loss": 0.30533
+    },
+    {
+     "iteration": 110,
+     "loss": 0.37711
+    },
+    {
+     "iteration": 115,
+     "loss": 0.36255
+    },
+    {
+     "iteration": 119,
+     "loss": 0.26111
+    }
+   ],
+   "training_seconds": 49.814,
+   "execution_backend": "Qiskit state-vector simulator (qiskit.quantum_info.Statevector)"
+  },
+  "runtime": {
+   "qiskit_installed": true,
+   "qiskit_version": "2.5.2",
+   "qiskit_machine_learning_installed": true,
+   "qiskit_machine_learning_version": "0.9.1",
+   "import_error": "qml_self_test_failed: ValueError: EstimatorQNN output 0.099627 != direct Statevector <ZZZZ> 0.112923",
+   "qiskit_runtime_errors": 0,
+   "qiskit_last_error": null,
+   "execution_backend": "Qiskit state-vector simulator (qiskit.quantum_info.Statevector)",
+   "execution_label": "Qiskit execution",
+   "qiskit_execution": true,
+   "forced_fallback": false,
+   "mode": "qiskit_statevector",
+   "hardware_execution": false,
+   "note": "Simulation only. No quantum hardware is used and no quantum advantage is claimed."
+  },
+  "qiskit_version": "2.5.2",
+  "qiskit_machine_learning_version": "0.9.1",
+  "circuit": {
+   "qubits": 4,
+   "layers": 2,
+   "encoding": "Angle encoding (RY, feature \u2192 [0, \u03c0])",
+   "entanglement": "Alternating CX ring",
+   "parameters": 16,
+   "readout_parameters": 5,
+   "gate_count": 24,
+   "measurement": "\u27e8Z\u27e9 expectation on every qubit",
+   "ansatz": "Custom RY/RZ variational block with alternating CX ring",
+   "circuit_depth": 7,
+   "engine": "builtin_vqc",
+   "status": "Experimental",
+   "qiskit_installed": true,
+   "qiskit_version": "2.5.2",
+   "execution_backend": "Qiskit state-vector simulator (qiskit.quantum_info.Statevector)",
+   "hardware_execution": false,
+   "qiskit_circuit_text": "     \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510      \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510     \u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\nq_0: \u2524 Ry(0.5) \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2524 Ry(-1.139) \u251c\u2500\u2524 Rz(-0.043516) \u251c\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2524 Ry(-0.84193) \u251c\u2500\u2524 Rz(-0.25954) \u251c\n     \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u250c\u2500\u2534\u2500\u2510\u250c\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2514\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524     \u2514\u2500\u252c\u2500\u2518\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\nq_1: \u2524 Ry(0.5) \u251c\u2524 X \u251c\u2524 Ry(0.38624) \u251c\u2500\u2500\u2524 Rz(-0.59473) \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2524 Ry(-0.54439) \u251c\u2500\u2524 Rz(-0.70561) \u251c\n     \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u2514\u2500\u2500\u2500\u2518\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2510 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2518\u250c\u2500\u2534\u2500\u2510  \u2502  \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2518 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2518\nq_2: \u2524 Ry(0.5) \u251c\u2500\u2500\u25a0\u2500\u2500\u2524 Ry(-0.43217) \u251c\u2500\u2524 Rz(0.12448) \u251c\u2500\u2524 X \u251c\u2500\u2500\u253c\u2500\u2500\u2524 Ry(0.17174) \u251c\u2500\u2500\u2524 Rz(0.29695) \u251c\u2500\n     \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u250c\u2500\u2534\u2500\u2510\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2514\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2514\u2500\u2500\u2500\u2518  \u2502  \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u250c\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2510\nq_3: \u2524 Ry(0.5) \u251c\u2524 X \u251c\u2524 Ry(0.065675) \u251c\u2500\u2500\u2524 Rz(-0.129) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2524 Ry(-0.7682) \u251c\u2500\u2524 Rz(-0.037764) \u251c\n     \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518  \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518           \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518"
+  },
+  "hardware_execution": false,
+  "quantum_advantage_claimed": false
+ },
+ "comparison": {
+  "accuracy_delta": 0.0,
+  "prediction_agreement": 100.0,
+  "verdict": "On this demonstration dataset the two models perform comparably. No quantum advantage is demonstrated or claimed."
+ },
+ "total_seconds": 50.224
+}

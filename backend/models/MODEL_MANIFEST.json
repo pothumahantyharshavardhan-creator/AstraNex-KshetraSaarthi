@@ -1,0 +1,12 @@
+{
+  "name": "CropGuard ResNet50 ONNX FP32",
+  "dataset": "PlantVillage",
+  "classes_file": "classes.json",
+  "model_file": "cropguard.onnx",
+  "class_count": 38,
+  "input_resolution": "224x224",
+  "source_repo": "AbhiCommits/cropguard-models",
+  "field_validation_status": "not_validated",
+  "accuracy_claim": "No field accuracy is claimed by this package.",
+  "sha256": "must_be_recorded_after_download_if_release_integrity_is required"
+}

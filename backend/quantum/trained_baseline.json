@@ -1,0 +1,26 @@
+{
+ "weights": [
+  5.949277109858377,
+  0.21862929111391172,
+  0.011952231084172628,
+  0.3988174238930682
+ ],
+ "bias": -3.2550390129011886,
+ "trained": true,
+ "training_info": {
+  "implementation": "scikit-learn",
+  "model": "Logistic regression",
+  "epochs": null,
+  "samples": 253,
+  "final_loss": 0.19319,
+  "training_seconds": 0.02
+ },
+ "features": [
+  "disease_signal",
+  "image_confidence",
+  "heat_risk",
+  "temperature"
+ ],
+ "implementation": "scikit-learn",
+ "saved_at": 1789951690.9799173
+}

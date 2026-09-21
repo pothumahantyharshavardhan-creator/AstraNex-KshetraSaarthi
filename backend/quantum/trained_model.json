@@ -1,0 +1,168 @@
+{
+ "engine": "builtin_vqc",
+ "model_version": 2,
+ "n_qubits": 4,
+ "layers": 2,
+ "feature_map": "Angle encoding (RY)",
+ "ansatz": "Custom RY/RZ variational block, alternating CX ring",
+ "weights": [
+  -1.1390337338129943,
+  -0.043515527681253684,
+  0.3862418104451084,
+  -0.5947274862018413,
+  -0.43217343845512757,
+  0.12447893496139356,
+  0.06567452361753107,
+  -0.1290045111079991,
+  -0.8419271549713095,
+  -0.25953783507154876,
+  -0.5443906548716079,
+  -0.7056119459101874,
+  0.17174354896597538,
+  0.29695144094585935,
+  -0.7681981844315849,
+  -0.037763512824061006
+ ],
+ "readout": [
+  0.8519076029011369,
+  0.4763215484971036,
+  0.3301817298632752,
+  0.6830674012805812
+ ],
+ "bias": -0.5105546297813707,
+ "trained": true,
+ "training_info": {
+  "optimizer": "SPSA (simultaneous perturbation stochastic approximation)",
+  "iterations": 120,
+  "batch_size": 64,
+  "samples": 253,
+  "final_loss": 0.25477,
+  "loss_history": [
+   {
+    "iteration": 0,
+    "loss": 1.548
+   },
+   {
+    "iteration": 5,
+    "loss": 0.71272
+   },
+   {
+    "iteration": 10,
+    "loss": 0.70872
+   },
+   {
+    "iteration": 15,
+    "loss": 0.65318
+   },
+   {
+    "iteration": 20,
+    "loss": 0.61382
+   },
+   {
+    "iteration": 25,
+    "loss": 0.52561
+   },
+   {
+    "iteration": 30,
+    "loss": 0.39535
+   },
+   {
+    "iteration": 35,
+    "loss": 0.46382
+   },
+   {
+    "iteration": 40,
+    "loss": 0.4129
+   },
+   {
+    "iteration": 45,
+    "loss": 0.41794
+   },
+   {
+    "iteration": 50,
+    "loss": 0.33134
+   },
+   {
+    "iteration": 55,
+    "loss": 0.4139
+   },
+   {
+    "iteration": 60,
+    "loss": 0.24358
+   },
+   {
+    "iteration": 65,
+    "loss": 0.32045
+   },
+   {
+    "iteration": 70,
+    "loss": 0.35106
+   },
+   {
+    "iteration": 75,
+    "loss": 0.25002
+   },
+   {
+    "iteration": 80,
+    "loss": 0.26349
+   },
+   {
+    "iteration": 85,
+    "loss": 0.34609
+   },
+   {
+    "iteration": 90,
+    "loss": 0.30373
+   },
+   {
+    "iteration": 95,
+    "loss": 0.2554
+   },
+   {
+    "iteration": 100,
+    "loss": 0.24355
+   },
+   {
+    "iteration": 105,
+    "loss": 0.30533
+   },
+   {
+    "iteration": 110,
+    "loss": 0.37711
+   },
+   {
+    "iteration": 115,
+    "loss": 0.36255
+   },
+   {
+    "iteration": 119,
+    "loss": 0.26111
+   }
+  ],
+  "training_seconds": 49.814,
+  "execution_backend": "Qiskit state-vector simulator (qiskit.quantum_info.Statevector)",
+  "dataset_metadata": {
+   "size": 360,
+   "train": 253,
+   "test": 107,
+   "positives": 102,
+   "negatives": 258,
+   "seed": 2026
+  }
+ },
+ "features": [
+  "disease_signal",
+  "image_confidence",
+  "heat_risk",
+  "temperature"
+ ],
+ "feature_order": [
+  "disease_signal",
+  "image_confidence",
+  "heat_risk",
+  "temperature"
+ ],
+ "qiskit_version": "2.5.2",
+ "execution_backend": "Qiskit state-vector simulator (qiskit.quantum_info.Statevector)",
+ "saved_at": 1789951690.979626
+}

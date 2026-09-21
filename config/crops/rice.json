@@ -1,0 +1,17 @@
+{
+  "crop": "rice",
+  "source": "Illustrative configurable defaults for demo/config purposes only. Not an externally validated agronomic dataset.",
+  "growth_stages": ["seedling", "vegetative", "flowering", "fruiting"],
+  "soil_moisture_threshold_pct": {
+    "seedling": 55,
+    "vegetative": 60,
+    "flowering": 62,
+    "fruiting": 55
+  },
+  "temperature_comfort_c": {"low": 20, "high": 35},
+  "humidity_disease_watch_pct": 75,
+  "known_disease_categories": ["Representative disease A", "Representative disease B"],
+  "known_pest_categories": ["Chewing insects (holes/edges)"],
+  "nutrient_indicators": ["Lower-leaf yellowing (possible nitrogen deficiency or water stress)"],
+  "validation_status": "NOT_FIELD_VALIDATED"
+}
